@@ -1,0 +1,7 @@
+.voted {
+    background-color: rgb(121, 164, 110) !important;
+}
+
+.not-voted {
+    background-color: rgb(255, 255, 255) !important;
+}
