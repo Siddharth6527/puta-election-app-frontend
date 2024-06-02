@@ -7,6 +7,7 @@ import Voters from "./pages/Voters";
 import Vote from "./pages/Vote";
 import Results from "./pages/Results";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import NavbarComponent from "./components/Navbar"
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path='/vote' element={<Vote />} />
           <Route path='/results' element={<Results />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/SignUp' element={<SignUp />} />
         </Routes>
       </div>
     </BrowserRouter>
