@@ -19,7 +19,7 @@ function App() {
       <div className="mainBody border">
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/voters' element={<Voters />} />
+          <Route path='/voters' element={<Voters isAdmin={true} />} />
           <Route path='/vote' element={<Vote />} />
           <Route path='/results' element={<Results />} />
           <Route path='/login' element={<Login />} />
