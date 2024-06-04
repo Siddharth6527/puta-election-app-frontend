@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import NavbarComponent from "./components/Navbar"
 
+
 function App() {
   const [count, setCount] = useState(0)
 

@@ -1,131 +1,193 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import {
+    GridRowModes,
+    GridToolbarContainer,
+    GridRowEditStopReasons,
+} from '@mui/x-data-grid';
+
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
 
 import "./VoterList.css";
-
-function DeleteUserActionItem({ deleteUser, ...props }) {
-    const [open, setOpen] = React.useState(false);
-    return (
-        <React.Fragment>
-            <GridActionsCellItem {...props} onClick={() => setOpen(true)} />
-            <Dialog
-                open={open}
-                onClose={() => setOpen(false)}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">Delete this user?</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        This action cannot be undone.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setOpen(false)}>Cancel</Button>
-                    <Button
-                        onClick={() => {
-                            setOpen(false);
-                            deleteUser();
-                        }}
-                        color="warning"
-                        autoFocus
-                    >
-                        Delete
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </React.Fragment>
-    );
-}
-
-
 
 export default function VoterList({ isAdmin, initialRows }) {
 
     const [rows, setRows] = React.useState(initialRows);
+    const [rowModesModel, setRowModesModel] = React.useState({});
 
-    const deleteUser = React.useCallback(
-        (id) => () => {
-            setTimeout(() => {
-                setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-            });
+
+    function EditToolbar(props) {
+        const { setRows, setRowModesModel } = props;
+
+        const handleClick = () => {
+            const id = rows.length + 1;
+            setRows((oldRows) => [{ id, Name: '', Designation: '', College: '', RNo: 0, MembershipCategory: "", VoteStatus: false }, ...oldRows]);
+            setRowModesModel((oldModel) => ({
+                ...oldModel,
+                [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+            }));
+        };
+
+        return (
+            <GridToolbarContainer>
+                <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+                    Add record
+                </Button>
+            </GridToolbarContainer>
+        );
+    }
+
+
+
+    const handleRowEditStop = (params, event) => {
+        if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+            event.defaultMuiPrevented = true;
+        }
+    };
+
+    const handleEditClick = (id) => () => {
+        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+    };
+
+    const handleSaveClick = (id) => () => {
+        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+    };
+
+    const handleDeleteClick = (id) => () => {
+        setRows(rows.filter((row) => row.id !== id));
+    };
+
+    const handleCancelClick = (id) => () => {
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.View, ignoreModifications: true },
+        });
+
+        const editedRow = rows.find((row) => row.id === id);
+        if (editedRow.isNew) {
+            setRows(rows.filter((row) => row.id !== id));
+        }
+    };
+
+    const processRowUpdate = (newRow) => {
+        const updatedRow = { ...newRow, isNew: false };
+        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        return updatedRow;
+    };
+
+    const handleRowModesModelChange = (newRowModesModel) => {
+        setRowModesModel(newRowModesModel);
+    };
+
+    const columns = [
+        { field: "id", headerName: "S. No.", flex: 0.4 },
+        {
+            field: "Name",
+            headerName: "Name",
+            flex: 1,
+            editable: isAdmin
         },
-        [],
-    );
+        {
+            field: "Designation",
+            headerName: "Designation",
+            flex: 1,
+            editable: isAdmin
+        },
+        {
+            field: "College",
+            headerName: "College",
+            flex: 1,
+            editable: isAdmin
+        },
+        {
+            field: "RNo",
+            headerName: "Recipt No.",
+            type: "Number",
+            flex: 0.6,
+            editable: isAdmin
+        },
+        {
+            field: "MembershipCategory",
+            headerName: "Membership Category",
+            flex: 0.8,
+            editable: isAdmin
+        },
+        {
+            field: "VoteStatus",
+            headerName: "voted",
+            type: "boolean",
+            flex: 0.4,
+            editable: isAdmin
+        },
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Actions',
+            width: 100,
+            cellClassName: 'actions',
+            flex: 0.4,
+            getActions: ({ id }) => {
+                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
-    const columns = React.useMemo(
-        () => [
-            { field: "id", headerName: "S. No.", flex: 0.4 },
-            {
-                field: "Name",
-                headerName: "Name",
-                flex: 1,
-                editable: isAdmin
-            },
-            {
-                field: "Designation",
-                headerName: "Designation",
-                flex: 1,
-                editable: isAdmin
-            },
-            {
-                field: "College",
-                headerName: "College",
-                flex: 1,
-                editable: isAdmin
-            },
-            {
-                field: "RNo",
-                headerName: "Recipt No.",
-                type: "Number",
-                flex: 0.6,
-                editable: isAdmin
-            },
-            {
-                field: "MembershipCategory",
-                headerName: "Membership Category",
-                flex: 0.8,
-                editable: isAdmin
-            },
-            {
-                field: "VoteStatus",
-                headerName: "voted",
-                type: "boolean",
-                flex: 0.4,
-                editable: isAdmin
-            },
-            {
-                field: 'actions',
-                type: 'actions',
-                width: 80,
-                getActions: (params) => [
-                    <DeleteUserActionItem
-                        label="Delete"
-                        showInMenu
-                        // icon={<DeleteIcon />}
-                        deleteUser={deleteUser(params.id)}
-                        closeMenuOnClick={false}
+                if (isInEditMode) {
+                    return [
+                        <GridActionsCellItem
+                            icon={<SaveIcon />}
+                            label="Save"
+                            sx={{
+                                color: 'primary.main',
+                            }}
+                            onClick={handleSaveClick(id)}
+                        />,
+                        <GridActionsCellItem
+                            icon={<CancelIcon />}
+                            label="Cancel"
+                            className="textPrimary"
+                            onClick={handleCancelClick(id)}
+                            color="inherit"
+                        />,
+                    ];
+                }
+
+                return [
+                    <GridActionsCellItem
+                        icon={<EditIcon />}
+                        label="Edit"
+                        className="textPrimary"
+                        onClick={handleEditClick(id)}
+                        color="inherit"
                     />,
-                ],
-                flex: 0.3
+                    <GridActionsCellItem
+                        icon={<DeleteIcon />}
+                        label="Delete"
+                        onClick={handleDeleteClick(id)}
+                        color="inherit"
+                    />,
+                ];
             },
-        ],
-        [deleteUser],
-    );
+        },
+    ];
 
     const columnVisibilityModel = {
         actions: isAdmin ? true : false
     }
 
     return (
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{
+            width: "100%",
+            '& .actions': {
+                color: 'text.secondary',
+            },
+            '& .textPrimary': {
+                color: 'text.primary',
+            },
+        }}>
             <DataGrid
                 className="px-3"
                 rowHeight={40}
@@ -137,12 +199,26 @@ export default function VoterList({ isAdmin, initialRows }) {
                             pageSize: 20,
                         },
                     },
+                    // sorting: {
+                    //     sortModel: [{ field: 'id', sort: 'asc' }],
+                    // },
                 }}
                 columnVisibilityModel={columnVisibilityModel}
                 pageSizeOptions={[20]}
                 disableRowSelectionOnClick
                 getRowClassName={(param) => {
                     return param.row.VoteStatus ? "voted" : "not-voted";
+                }}
+                editMode="row"
+                rowModesModel={rowModesModel}
+                onRowModesModelChange={handleRowModesModelChange}
+                onRowEditStop={handleRowEditStop}
+                processRowUpdate={processRowUpdate}
+                slots={{
+                    toolbar: isAdmin ? EditToolbar : null,
+                }}
+                slotProps={{
+                    toolbar: { setRows, setRowModesModel },
                 }}
             />
         </Box>

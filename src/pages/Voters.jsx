@@ -1,6 +1,4 @@
 import VoterList from "../components/VoterList"
-import AddVoter from "../components/AddVoter"
-import { useState } from "react";
 
 import "./Voter.css"
 export default function Voters({ isAdmin }) {
@@ -178,21 +176,14 @@ export default function Voters({ isAdmin }) {
         { id: 25, Name: "Snow", Designation: "Jon", College: "College of Technology", RNo: 142, MembershipCategory: "General", VoteStatus: false, },
     ];
 
-
-    const [showForm, setShowForm] = useState(false);
-    function toggleForm() {
-        setShowForm(ShowForm => !ShowForm);
-    }
     return (
         <>
             <p className="text-center heading">List of all voters</p>
             {isAdmin &&
                 <p className="text-center text-muted">
-                    (You are an admin. Double click to edit an entry. You can delete any voter or add new voter. )
+                    (You are an admin. You can add, edit and delete any voter. )
                 </p>
             }
-            {isAdmin && showForm && <AddVoter />}
-            <div className="btn btn-primary" onClick={toggleForm}>{showForm ? "cancel" : "Add voter"}</div>
             <div className="container list mt-3">
                 <VoterList isAdmin={isAdmin} initialRows={initialRows} />
             </div>
