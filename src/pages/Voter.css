@@ -1,0 +1,17 @@
+.heading {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+
+@media screen and (max-width: 800px) {
+    .list {
+        zoom: 85%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .list {
+        zoom: 60%;
+    }
+}

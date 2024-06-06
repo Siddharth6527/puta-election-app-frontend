@@ -1,0 +1,30 @@
+#addVoter {
+    width: 50vw;
+    margin: 0 auto;
+    margin-bottom: 1.2em;
+    padding: 1.5em;
+    background-color: rgb(211, 211, 211);
+    border-radius: 0.5em;
+}
+
+label {
+    /* border: 1px solid red; */
+    text-align: left !important;
+    display: block;
+    font-size: 0.8em;
+}
+
+.group {
+    /* border: 1px solid red; */
+}
+
+input {
+    /* background-color: red !important; */
+    /* width: 50% !important; */
+}
+
+@media screen and (max-width: 576px) {
+    Form {
+        padding: 1em;
+    }
+}
