@@ -1,180 +1,36 @@
 import VoterList from "../components/VoterList"
-
+import { useEffect, useState } from "react";
+import AddVoter from "../components/AddVoter";
 import "./Voter.css"
+import CircularProgress from '@mui/material/CircularProgress';
+
 export default function Voters({ isAdmin }) {
 
+    const [initialRows, setInitialRows] = useState([]);
 
-    const initialRows = [
-        {
-            id: 1,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: true,
-        },
-        {
-            id: 2,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 3,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 4,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: true,
-        },
-        {
-            id: 5,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 6,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 7,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: true,
-        },
-        {
-            id: 8,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 9,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 10,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: true,
-        },
-        {
-            id: 11,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: true,
-        },
-        {
-            id: 12,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 13,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 14,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: true,
-        },
-        {
-            id: 15,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 16,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        {
-            id: 17,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: true,
-        },
-        {
-            id: 18,
-            Name: "Snow",
-            Designation: "Jon",
-            College: "College of Technology",
-            RNo: 142,
-            MembershipCategory: "General",
-            VoteStatus: false,
-        },
-        { id: 19, Name: "Snow", Designation: "Jon", College: "College of Technology", RNo: 142, MembershipCategory: "General", VoteStatus: false, },
-        { id: 20, Name: "Snow", Designation: "Jon", College: "College of Technology", RNo: 142, MembershipCategory: "General", VoteStatus: false, },
-        { id: 21, Name: "Snow", Designation: "Jon", College: "College of Technology", RNo: 142, MembershipCategory: "General", VoteStatus: false, },
-        { id: 22, Name: "Snow", Designation: "Jon", College: "College of Technology", RNo: 142, MembershipCategory: "General", VoteStatus: false, },
-        { id: 23, Name: "Snow", Designation: "Jon", College: "College of Technology", RNo: 142, MembershipCategory: "General", VoteStatus: false, },
-        { id: 24, Name: "Snow", Designation: "Jon", College: "College of Technology", RNo: 142, MembershipCategory: "General", VoteStatus: false, },
-        { id: 25, Name: "Snow", Designation: "Jon", College: "College of Technology", RNo: 142, MembershipCategory: "General", VoteStatus: false, },
-    ];
+    useEffect(() => {
+        async function display() {
+            const fetchData = await fetch("/api/v1/voters");
+            const fetchedData = await fetchData.json();
+            const data = fetchedData.data.voters;
+            console.log(data);
+            setInitialRows(data.map((voter, i) => {
+                return {
+                    id: voter.sno,
+                    Name: voter.name,
+                    Designation: voter.designation,
+                    College: voter.college,
+                    RNo: voter.receiptNo,
+                    MembershipCategory: voter.memebershipCategory,
+                    VoteStatus: voter.voted,
+                    email: voter.email,
+                    password: voter.password,
+                    _id: voter._id
+                }
+            }))
+        }
+        display();
+    }, [])
 
     return (
         <>
@@ -184,8 +40,12 @@ export default function Voters({ isAdmin }) {
                     (You are an admin. You can add, edit and delete any voter. )
                 </p>
             }
+
+            {isAdmin && <AddVoter SNo={initialRows.length + 1} />}
+
             <div className="container list mt-3">
-                <VoterList isAdmin={isAdmin} initialRows={initialRows} />
+                {initialRows.length == 0 && <CircularProgress className="m-3" />}
+                {initialRows.length > 0 && <VoterList isAdmin={isAdmin} initialRows={initialRows} />}
             </div>
         </>
     )

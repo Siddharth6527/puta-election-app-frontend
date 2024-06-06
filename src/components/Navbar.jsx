@@ -4,7 +4,7 @@ export default function NavbarComponent() {
     return (
         <nav className="navbar bg-info navbar-expand-lg">
             <div className="container-fluid">
-                <Link class="navbar-brand" href="#">Puta-Elections</Link>
+                <Link className="navbar-brand" href="#">PUTA-Elections</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>

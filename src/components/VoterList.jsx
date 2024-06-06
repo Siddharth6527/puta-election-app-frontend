@@ -1,49 +1,24 @@
+import "./VoterList.css";
 import React from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import Button from '@mui/material/Button';
 import {
     GridRowModes,
-    GridToolbarContainer,
     GridRowEditStopReasons,
 } from '@mui/x-data-grid';
 
-import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 
-import "./VoterList.css";
-
 export default function VoterList({ isAdmin, initialRows }) {
 
-    const [rows, setRows] = React.useState(initialRows);
+    const [rows, setRows] = React.useState([]);
     const [rowModesModel, setRowModesModel] = React.useState({});
-
-
-    function EditToolbar(props) {
-        const { setRows, setRowModesModel } = props;
-
-        const handleClick = () => {
-            const id = rows.length + 1;
-            setRows((oldRows) => [{ id, Name: '', Designation: '', College: '', RNo: 0, MembershipCategory: "", VoteStatus: false }, ...oldRows]);
-            setRowModesModel((oldModel) => ({
-                ...oldModel,
-                [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-            }));
-        };
-
-        return (
-            <GridToolbarContainer>
-                <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-                    Add record
-                </Button>
-            </GridToolbarContainer>
-        );
-    }
-
-
+    React.useEffect(() => {
+        setRows(initialRows);
+    })
 
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -196,15 +171,15 @@ export default function VoterList({ isAdmin, initialRows }) {
                 initialState={{
                     pagination: {
                         paginationModel: {
-                            pageSize: 20,
+                            pageSize: 4,
                         },
                     },
-                    // sorting: {
-                    //     sortModel: [{ field: 'id', sort: 'asc' }],
-                    // },
+                    sorting: {
+                        sortModel: [{ field: 'id', sort: 'asc' }],
+                    },
                 }}
                 columnVisibilityModel={columnVisibilityModel}
-                pageSizeOptions={[20]}
+                pageSizeOptions={[4]}
                 disableRowSelectionOnClick
                 getRowClassName={(param) => {
                     return param.row.VoteStatus ? "voted" : "not-voted";
@@ -214,9 +189,6 @@ export default function VoterList({ isAdmin, initialRows }) {
                 onRowModesModelChange={handleRowModesModelChange}
                 onRowEditStop={handleRowEditStop}
                 processRowUpdate={processRowUpdate}
-                slots={{
-                    toolbar: isAdmin ? EditToolbar : null,
-                }}
                 slotProps={{
                     toolbar: { setRows, setRowModesModel },
                 }}
