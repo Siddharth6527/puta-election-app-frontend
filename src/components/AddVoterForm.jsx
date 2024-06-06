@@ -5,7 +5,6 @@ export default function AddVoterForm({ SNo }) {
             evt.preventDefault();
             form.classList.add('was-validated');
         }
-        evt.preventDefault();
     };
 
     return (
