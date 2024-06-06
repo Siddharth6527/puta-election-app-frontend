@@ -5,11 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
-      '/api': {
-        target: 'https://puta-election-app-backend.onrender.com',
-        changeOrigin: true,
-      },
-    },
+    // proxy: {
+    //   '/api': {
+    //     target: 'https://puta-election-app-backend.onrender.com',
+    //     changeOrigin: true,
+    //   },
+    // },
   },
 })
