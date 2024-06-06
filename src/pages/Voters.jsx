@@ -10,7 +10,8 @@ export default function Voters({ isAdmin }) {
 
     useEffect(() => {
         async function display() {
-            const fetchData = await fetch("/api/v1/voters");
+            const fetchData = await fetch("https://puta-election-app-backend.onrender.com/api/v1/voters");
+            // const fetchData = await fetch("http://localhost:3000/api/v1/voters");
             const fetchedData = await fetchData.json();
             const data = fetchedData.data.voters;
             console.log(data);
