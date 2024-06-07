@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import SnackBarComponent from './SnackBarComponent';
 import './AddVoterForm.css'
+import { addDataToServer } from '../utils/serverFunctions';
 
 export default function AddVoterForm({ SNo }) {
 
@@ -22,31 +23,19 @@ export default function AddVoterForm({ SNo }) {
             return;
         }
         evt.preventDefault();
-        try {
-            const formData = new FormData(form);
-            // const response = await fetch('http://localhost:3000/api/v1/voters/signup', {
-            const response = await fetch('https://puta-election-app-backend.onrender.com/api/v1/voters/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams(formData)
-            });
-            if (response.ok) {
-                console.log("Successfully added data")
-                setSnackBarMessage('Succesfully added voter!');
-                setSnackBarSeverity('success');
-                setSnackBarOpen(true);
-            } else {
-                setSnackBarMessage('Failed to submit form.');
-                setSnackBarSeverity('error');
-                setSnackBarOpen(true);
-                console.log("error in adding data to server");
-            }
-        } catch (error) {
-            console.log('error: ', error);
+        const response = await addDataToServer(form);
+        if (response.ok) {
+            console.log("Successfully added data")
+            setSnackBarMessage('Succesfully added voter!');
+            setSnackBarSeverity('success');
+            setSnackBarOpen(true);
+        } else {
+            setSnackBarMessage('Failed to submit form.');
+            setSnackBarSeverity('error');
+            setSnackBarOpen(true);
+            console.log("error in adding data to server");
         }
-        navigate(0);
+        setTimeout(() => navigate(0), 1300);
     };
 
     return (

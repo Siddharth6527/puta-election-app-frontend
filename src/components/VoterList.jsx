@@ -6,13 +6,26 @@ import {
     GridRowModes,
     GridRowEditStopReasons,
 } from '@mui/x-data-grid';
-
+import { useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import { useNavigate } from "react-router-dom";
+import SnackBarComponent from './SnackBarComponent';
+import { convertToServerObject, deleteDataFromServer, updateDataInServer } from "../utils/serverFunctions";
+
 
 export default function VoterList({ isAdmin, initialRows }) {
+
+    const navigate = useNavigate();
+    const [snackBarOpen, setSnackBarOpen] = useState(false);
+    const [snackBarMessage, setSnackBarMessage] = useState('');
+    const [snackBarSeverity, setSnackBarSeverity] = useState('success');
+
+    const handleSnackBarClose = () => {
+        setSnackBarOpen(false);
+    };
 
     const [rows, setRows] = React.useState([]);
     const [rowModesModel, setRowModesModel] = React.useState({});
@@ -34,8 +47,24 @@ export default function VoterList({ isAdmin, initialRows }) {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
 
-    const handleDeleteClick = (id) => () => {
-        setRows(rows.filter((row) => row.id !== id));
+    const handleDeleteClick = (id) => async () => {
+
+        const row = rows.find(row => row.id == id);
+        const objectId = row ? row._id : undefined;
+        const response = await deleteDataFromServer(objectId);
+
+        if (response.ok) {
+            console.log("Successfully deleted data")
+            setSnackBarMessage('Succesfully deleted record!');
+            setSnackBarSeverity('success');
+            setSnackBarOpen(true);
+        } else {
+            setSnackBarMessage(`Failed to delete record`);
+            setSnackBarSeverity('error');
+            setSnackBarOpen(true);
+            console.log("error in deleting data");
+        }
+        setTimeout(() => navigate(0), 1300);
     };
 
     const handleCancelClick = (id) => () => {
@@ -50,10 +79,22 @@ export default function VoterList({ isAdmin, initialRows }) {
         }
     };
 
-    const processRowUpdate = (newRow) => {
+    const processRowUpdate = async (newRow) => {
         const updatedRow = { ...newRow, isNew: false };
-        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-        return updatedRow;
+        const data = convertToServerObject(updatedRow);
+        const response = await updateDataInServer(data);
+        if (response.ok) {
+            console.log("Successfully updated data")
+            setSnackBarMessage('Succesfully updated data!');
+            setSnackBarSeverity('success');
+            setSnackBarOpen(true);
+        } else {
+            setSnackBarMessage(`Failed to update data`);
+            setSnackBarSeverity('error');
+            setSnackBarOpen(true);
+            console.log("error in adding data to server");
+        }
+        setTimeout(() => navigate(0), 1000);
     };
 
     const handleRowModesModelChange = (newRowModesModel) => {
@@ -163,7 +204,7 @@ export default function VoterList({ isAdmin, initialRows }) {
     const columnVisibilityModel = {
         actions: isAdmin ? true : false
     }
-
+    const pageSize = Math.min(15, initialRows.length);
     return (
         <Box
             margin='0 auto'
@@ -188,7 +229,7 @@ export default function VoterList({ isAdmin, initialRows }) {
                 initialState={{
                     pagination: {
                         paginationModel: {
-                            pageSize: 15,
+                            pageSize: pageSize,
                         },
                     },
                     sorting: {
@@ -196,7 +237,7 @@ export default function VoterList({ isAdmin, initialRows }) {
                     },
                 }}
                 columnVisibilityModel={columnVisibilityModel}
-                pageSizeOptions={[15]}
+                pageSizeOptions={[pageSize]}
                 disableRowSelectionOnClick
                 getRowClassName={(param) => {
                     return param.row.VoteStatus ? "voted" : "not-voted";
@@ -210,6 +251,12 @@ export default function VoterList({ isAdmin, initialRows }) {
                     toolbar: { setRows, setRowModesModel },
                 }}
                 disableColumnMenu
+            />
+            <SnackBarComponent
+                open={snackBarOpen}
+                message={snackBarMessage}
+                severity={snackBarSeverity}
+                onClose={handleSnackBarClose}
             />
         </Box>
     );
