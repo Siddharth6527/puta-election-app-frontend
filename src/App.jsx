@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 
 import Home from "./pages/Home";
 import Voters from "./pages/Voters";
@@ -8,12 +8,12 @@ import Results from "./pages/Results";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import NavbarComponent from "./components/Navbar"
-
+import { Router } from '@mui/icons-material';
 
 function App() {
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <NavbarComponent />
       <div className="mainBody border">
         <Routes>
@@ -26,7 +26,7 @@ function App() {
           <Route path='*' element={<Home />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
