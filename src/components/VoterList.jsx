@@ -171,7 +171,7 @@ export default function VoterList({ isAdmin, initialRows }) {
                 initialState={{
                     pagination: {
                         paginationModel: {
-                            pageSize: 4,
+                            pageSize: 15,
                         },
                     },
                     sorting: {
@@ -179,7 +179,7 @@ export default function VoterList({ isAdmin, initialRows }) {
                     },
                 }}
                 columnVisibilityModel={columnVisibilityModel}
-                pageSizeOptions={[4]}
+                pageSizeOptions={[15]}
                 disableRowSelectionOnClick
                 getRowClassName={(param) => {
                     return param.row.VoteStatus ? "voted" : "not-voted";
