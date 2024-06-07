@@ -10,8 +10,8 @@ export default function Voters({ isAdmin }) {
 
     useEffect(() => {
         async function display() {
-            const fetchData = await fetch("https://puta-election-app-backend.onrender.com/api/v1/voters");
-            // const fetchData = await fetch("http://localhost:3000/api/v1/voters");
+            // const fetchData = await fetch("https://puta-election-app-backend.onrender.com/api/v1/voters");
+            const fetchData = await fetch("http://localhost:3000/api/v1/voters");
             const fetchedData = await fetchData.json();
             const data = fetchedData.data.voters;
             console.log(data);
@@ -45,7 +45,7 @@ export default function Voters({ isAdmin }) {
 
             <div className="container list mt-3">
                 {initialRows.length == 0 && <CircularProgress className="m-3" />}
-                {initialRows.length > 0 && <VoterList isAdmin={isAdmin} initialRows={initialRows} />}
+                {initialRows.length > 0 && <VoterList className='voterList' isAdmin={isAdmin} initialRows={initialRows} />}
             </div>
         </>
     )
