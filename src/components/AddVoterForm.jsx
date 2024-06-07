@@ -23,7 +23,8 @@ export default function AddVoterForm({ SNo }) {
         evt.preventDefault();
         try {
             const formData = new FormData(form);
-            const response = await fetch('http://localhost:3000/api/v1/voters/signup', {
+            // const response = await fetch('http://localhost:3000/api/v1/voters/signup', {
+            const response = await fetch('https://puta-election-app-backend.onrender.com/api/v1/voters/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -41,7 +42,6 @@ export default function AddVoterForm({ SNo }) {
                 setSnackBarOpen(true);
                 console.log("error in adding data to server");
             }
-            setTimeout(navigate(0), 3000);
         } catch (error) {
             console.log('error: ', error);
         }
@@ -51,7 +51,7 @@ export default function AddVoterForm({ SNo }) {
         <>
             <form
                 id='addVoter'
-                action="http://localhost:3000/api/v1/voters/signup"
+                // action="http://localhost:3000/api/v1/voters/signup"
                 // action="https://puta-election-app-backend.onrender.com/api/v1/voters/signup"
                 noValidate
                 onSubmit={handleSubmit}
