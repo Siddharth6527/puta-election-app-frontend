@@ -41,7 +41,6 @@ export default function Voters({ isAdmin }) {
                     (You are an admin. You can add, edit and delete any voter. )
                 </p>
             }
-
             {isAdmin && <AddVoter SNo={initialRows.length + 1} />}
 
             <div className="container list mt-3">
