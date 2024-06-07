@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import SnackBarComponent from './SnackBarComponent';
+import './AddVoterForm.css'
 
 export default function AddVoterForm({ SNo }) {
 
@@ -45,6 +46,7 @@ export default function AddVoterForm({ SNo }) {
         } catch (error) {
             console.log('error: ', error);
         }
+        navigate(0);
     };
 
     return (
@@ -52,7 +54,7 @@ export default function AddVoterForm({ SNo }) {
             <form
                 id='addVoter'
                 // action="http://localhost:3000/api/v1/voters/signup"
-                // action="https://puta-election-app-backend.onrender.com/api/v1/voters/signup"
+                action="https://puta-election-app-backend.onrender.com/api/v1/voters/signup"
                 noValidate
                 onSubmit={handleSubmit}
                 method="POST"

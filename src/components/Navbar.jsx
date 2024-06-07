@@ -11,19 +11,29 @@ export default function NavbarComponent() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                            <Link className="nav-link active" aria-current="page" to="/">
+                                <span data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse"> Home </span>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/voters">Voters</Link>
+                            <Link className="nav-link" to="/voters">
+                                <span data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">Voters</span>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/vote">Vote</Link>
+                            <Link className="nav-link" to="/vote">
+                                <span data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">Vote</span>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/results">Results</Link>
+                            <Link className="nav-link" to="/results">
+                                <span data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">Results</span>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
+                            <Link className="nav-link" to="/login">
+                                <span data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">Login</span>
+                            </Link>
                         </li>
                     </ul>
                 </div>

@@ -61,52 +61,63 @@ export default function VoterList({ isAdmin, initialRows }) {
     };
 
     const columns = [
-        { field: "id", headerName: "S. No.", flex: 0.4 },
+        {
+            field: "id",
+            headerName: "S.No.",
+            width: 80,
+            flex: 1,
+        },
         {
             field: "Name",
             headerName: "Name",
+            editable: isAdmin,
+            minWidth: 180,
             flex: 1,
-            editable: isAdmin
         },
         {
             field: "Designation",
             headerName: "Designation",
+            editable: isAdmin,
+            minWidth: 200,
             flex: 1,
-            editable: isAdmin
         },
         {
             field: "College",
             headerName: "College",
+            editable: isAdmin,
+            minWidth: 220,
             flex: 1,
-            editable: isAdmin
         },
         {
             field: "RNo",
             headerName: "Recipt No.",
             type: "Number",
-            flex: 0.6,
-            editable: isAdmin
+            editable: isAdmin,
+            minWidth: 120,
+            flex: 1,
         },
         {
             field: "MembershipCategory",
             headerName: "Membership Category",
-            flex: 0.8,
-            editable: isAdmin
+            editable: isAdmin,
+            minWidth: 120,
+            flex: 1,
         },
         {
             field: "VoteStatus",
             headerName: "voted",
             type: "boolean",
-            flex: 0.4,
-            editable: isAdmin
+            editable: isAdmin,
+            minWidth: 100,
+            flex: 1,
         },
         {
             field: 'actions',
             type: 'actions',
             headerName: 'Actions',
-            width: 100,
+            minWidth: 100,
+            flex: 1,
             cellClassName: 'actions',
-            flex: 0.4,
             getActions: ({ id }) => {
                 const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -154,16 +165,22 @@ export default function VoterList({ isAdmin, initialRows }) {
     }
 
     return (
-        <Box sx={{
-            width: "100%",
-            '& .actions': {
-                color: 'text.secondary',
-            },
-            '& .textPrimary': {
-                color: 'text.primary',
-            },
-        }}>
+        <Box
+            margin='0 auto'
+            sx={{
+                textAlign: 'center',
+                width: "100%",
+                overflowX: 'scroll',
+                '& .actions': {
+                    color: 'text.secondary',
+                },
+                '& .textPrimary': {
+                    color: 'text.primary',
+                },
+
+            }}>
             <DataGrid
+                sx={{ width: '100%' }}
                 className="px-3"
                 rowHeight={40}
                 rows={rows}
@@ -192,6 +209,7 @@ export default function VoterList({ isAdmin, initialRows }) {
                 slotProps={{
                     toolbar: { setRows, setRowModesModel },
                 }}
+                disableColumnMenu
             />
         </Box>
     );
