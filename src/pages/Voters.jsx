@@ -17,7 +17,7 @@ export default function Voters({ isAdmin }) {
             console.log(data);
             setInitialRows(data.map((voter, i) => {
                 return {
-                    id: voter.sno,
+                    id: i + 1,
                     Name: voter.name,
                     Designation: voter.designation,
                     College: voter.college,

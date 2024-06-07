@@ -78,7 +78,7 @@ export default function VoterList({ isAdmin, initialRows }) {
             field: "Designation",
             headerName: "Designation",
             editable: isAdmin,
-            minWidth: 200,
+            minWidth: 180,
             flex: 1,
         },
         {
@@ -170,7 +170,7 @@ export default function VoterList({ isAdmin, initialRows }) {
             sx={{
                 textAlign: 'center',
                 width: "100%",
-                overflowX: 'scroll',
+                overflowX: 'auto',
                 '& .actions': {
                     color: 'text.secondary',
                 },
@@ -180,7 +180,7 @@ export default function VoterList({ isAdmin, initialRows }) {
 
             }}>
             <DataGrid
-                sx={{ width: '100%' }}
+                sx={{ width: '100%', minHeight: 'max-content' }}
                 className="px-3"
                 rowHeight={40}
                 rows={rows}
