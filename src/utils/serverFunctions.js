@@ -1,8 +1,8 @@
 export const addDataToServer = async (form) => {
     try {
         const formData = new FormData(form);
-        const response = await fetch('http://localhost:3000/api/v1/voters/signup', {
-            // const response = await fetch('https://puta-election-app-backend.onrender.com/api/v1/voters/signup', {
+        // const response = await fetch('http://localhost:3000/api/v1/voters/signup', {
+        const response = await fetch('https://puta-election-app-backend.onrender.com/api/v1/voters/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -17,8 +17,8 @@ export const addDataToServer = async (form) => {
 
 export const updateDataInServer = async (data) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/v1/voters/${data._id}`, {
-            // const response = await fetch(`https://puta-election-app-backend.onrender.com/api/v1/voters/${newRow.id}`, {
+        // const response = await fetch(`http://localhost:3000/api/v1/voters/${data._id}`, {
+        const response = await fetch(`https://puta-election-app-backend.onrender.com/api/v1/voters/${newRow.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,8 +33,8 @@ export const updateDataInServer = async (data) => {
 
 export const deleteDataFromServer = async (objectId) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/v1/voters/${objectId}`, {
-            // const response = await fetch(`https://puta-election-app-backend.onrender.com/api/v1/voters/${objectId}`, {
+        // const response = await fetch(`http://localhost:3000/api/v1/voters/${objectId}`, {
+        const response = await fetch(`https://puta-election-app-backend.onrender.com/api/v1/voters/${objectId}`, {
             method: 'Delete',
             headers: {
                 'Content-Type': 'application/json'
