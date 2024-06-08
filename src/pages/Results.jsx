@@ -20,7 +20,7 @@ const Results = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const respones = fetch('https://puta-election-app-backend.onrender.com/api/v1/candidates');
+            const response = await fetch('https://puta-election-app-backend.onrender.com/api/v1/candidates');
             // const response = await fetch('http://localhost:3000/api/v1/candidates');
             const fetchedData = await response.json();
             const data = changeFormat(fetchedData.data);
