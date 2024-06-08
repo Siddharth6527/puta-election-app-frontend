@@ -6,7 +6,11 @@ export default function Home() {
   return (
     <React.Fragment>
       <Box margin={"auto"} maxWidth={1200}>
-        <img src={PutaImg} className="img-fluid" alt="Responsive image"></img>
+        <img
+          src={PutaImg}
+          className="img-fluid rounded"
+          alt="Responsive image"
+        ></img>
       </Box>
     </React.Fragment>
   );
