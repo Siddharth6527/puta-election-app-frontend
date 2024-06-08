@@ -10,10 +10,12 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SnackBarComponent from "../components/SnackBarComponent";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function Login() {
+  const navigate = useNavigate();
   const [displaySnackbar, setDisplaySnackbar] = useState(false);
   const [resMessage, setResMessage] = useState("success");
 
@@ -44,6 +46,9 @@ export default function Login() {
       if (responseData.status === "success") {
         // set the token in the local storage
         localStorage.setItem("authToken", responseData.token);
+        setTimeout(() => {
+          navigate("/");
+        }, 5000);
       }
     } catch (err) {
       console.error("Error: ", err);
