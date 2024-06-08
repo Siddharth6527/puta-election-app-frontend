@@ -14,7 +14,7 @@ import CancelIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
 import SnackBarComponent from './SnackBarComponent';
 import { convertToServerObject, deleteDataFromServer, updateDataInServer } from "../utils/serverFunctions";
-
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 
 export default function VoterList({ isAdmin, initialRows }) {
 
@@ -47,8 +47,18 @@ export default function VoterList({ isAdmin, initialRows }) {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
 
-    const handleDeleteClick = (id) => async () => {
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [id, setId] = useState();
 
+    const handleDeleteClick = (id) => async () => {
+        setDialogOpen(true);
+        setId(id);
+    };
+    const handleClose = () => {
+        setDialogOpen(false);
+    };
+
+    const onConfirm = async () => {
         const row = rows.find(row => row.id == id);
         const objectId = row ? row._id : undefined;
         const response = await deleteDataFromServer(objectId);
@@ -64,8 +74,8 @@ export default function VoterList({ isAdmin, initialRows }) {
             setSnackBarOpen(true);
             console.log("error in deleting data");
         }
-        setTimeout(() => navigate(0), 1300);
-    };
+        setTimeout(() => navigate(0), 500);
+    }
 
     const handleCancelClick = (id) => () => {
         setRowModesModel({
@@ -251,6 +261,11 @@ export default function VoterList({ isAdmin, initialRows }) {
                     toolbar: { setRows, setRowModesModel },
                 }}
                 disableColumnMenu
+            />
+            <DeleteConfirmationDialog
+                open={dialogOpen}
+                onClose={handleClose}
+                onConfirm={onConfirm}
             />
             <SnackBarComponent
                 open={snackBarOpen}

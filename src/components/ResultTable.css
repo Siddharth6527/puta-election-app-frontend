@@ -1,0 +1,9 @@
+ResultTable {
+    background-color: red;
+}
+
+.tab {
+    border: 1px solid rgb(73, 173, 255);
+    max-width: 60vw !important;
+    margin: 1.5rem auto;
+}
