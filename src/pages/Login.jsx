@@ -30,16 +30,17 @@ export default function Login() {
 
     let responseData = "";
     try {
-      const res = await fetch("http://127.0.0.1:3000/api/v1/voters/login", {
-        // const res = await fetch(
-        //   "https://puta-election-app-backend.onrender.com/api/v1/voters/login",
-        //   {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      // const res = await fetch("http://127.0.0.1:3000/api/v1/voters/login", {
+      const res = await fetch(
+        "https://puta-election-app-backend.onrender.com/api/v1/voters/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       responseData = await res.json();
       //   console.log(data);
