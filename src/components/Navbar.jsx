@@ -1,6 +1,24 @@
+import { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 export default function NavbarComponent() {
+  const [loggedIn, setLoggedIn] = useState();
+
+  if (loggedIn) {
+    if (!localStorage.getItem("authToken")) {
+      setLoggedIn(false);
+    }
+  } else {
+    if (localStorage.getItem("authToken")) {
+      setLoggedIn(true);
+    }
+  }
+
+  const onLogoutHandler = () => {
+    localStorage.clear();
+    setLoggedIn(false);
+  };
+
   return (
     <nav className="navbar bg-info navbar-expand-lg">
       <div className="container-fluid">
@@ -61,16 +79,42 @@ export default function NavbarComponent() {
                 </span>
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">
-                <span
-                  data-bs-target="#navbarSupportedContent"
-                  data-bs-toggle="collapse"
-                >
-                  <b> LOGIN </b>
-                </span>
-              </Link>
-            </li>
+            {!loggedIn && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">
+                  <span
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                  >
+                    <b> LOGIN </b>
+                  </span>
+                </Link>
+              </li>
+            )}
+            {loggedIn && (
+              <li className="nav-item" onClick={onLogoutHandler}>
+                <Link className="nav-link" to="/">
+                  <span
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                  >
+                    <b> LOGOUT </b>
+                  </span>
+                </Link>
+              </li>
+            )}
+            {loggedIn && (
+              <li className="nav-item">
+                <Link className="nav-link">
+                  <span
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                  >
+                    <b> Logged In As ({localStorage.getItem("username")}) </b>
+                  </span>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
