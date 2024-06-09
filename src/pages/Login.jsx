@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 const defaultTheme = createTheme();
 
 export default function Login() {
+  // const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [displaySnackbar, setDisplaySnackbar] = useState(false);
   const [resMessage, setResMessage] = useState("success");
@@ -29,7 +30,7 @@ export default function Login() {
 
     let responseData = "";
     try {
-      //   const res = await fetch("http://127.0.0.1:3000/api/v1/voters/login", {
+      // const res = await fetch("http://127.0.0.1:3000/api/v1/voters/login", {
       const res = await fetch(
         "https://puta-election-app-backend.onrender.com/api/v1/voters/login",
         {
@@ -45,7 +46,9 @@ export default function Login() {
       //   console.log(data);
       if (responseData.status === "success") {
         // set the token in the local storage
+        // setLoggedIn(true);
         localStorage.setItem("authToken", responseData.token);
+        localStorage.setItem("username", data.get("email"));
         setTimeout(() => {
           navigate("/");
         }, 5000);
