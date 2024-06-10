@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import AddVoter from "../components/AddVoter";
 import "./Voter.css"
 import CircularProgress from '@mui/material/CircularProgress';
+import { fetchVotersFromServer } from "../utils/serverFunctions";
 
 export default function Voters({ isAdmin }) {
 
@@ -10,11 +11,7 @@ export default function Voters({ isAdmin }) {
 
     useEffect(() => {
         async function display() {
-            const fetchData = await fetch("https://puta-election-app-backend.onrender.com/api/v1/voters");
-            // const fetchData = await fetch("http://localhost:3000/api/v1/voters");
-            const fetchedData = await fetchData.json();
-            const data = fetchedData.data.voters;
-            console.log(data);
+            const data = await fetchVotersFromServer();
             setInitialRows(data.map((voter, i) => {
                 return {
                     id: i + 1,

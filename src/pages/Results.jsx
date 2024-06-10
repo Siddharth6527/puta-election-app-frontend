@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ResultTable from "../components/ResultTable";
+import { fetchCandidatesFromServer } from "../utils/serverFunctions";
 
-const changeFormat = (arr) => {
-  return arr.reduce((acc, current) => {
-    const formattedPosition = current.position.toLowerCase().replace(/ /g, "");
-    acc[formattedPosition] = current.candidates;
-    return acc;
-  }, {});
-};
 
 const Results = () => {
   const [results, setResults] = useState({
@@ -17,17 +11,14 @@ const Results = () => {
     secretary: [],
     treasurer: [],
   });
-  
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch('https://puta-election-app-backend.onrender.com/api/v1/candidates');
-            // const response = await fetch('http://localhost:3000/api/v1/candidates');
-            const fetchedData = await response.json();
-            const data = changeFormat(fetchedData.data);
-            setResults(data);
-        }
-        fetchData();
-    }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchCandidatesFromServer();
+      setResults(data);
+    }
+    fetchData();
+  }, []);
 
 
   console.log(results);
