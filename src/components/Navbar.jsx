@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-export default function NavbarComponent() {
+
+export default function NavbarComponent({ isAdmin }) {
   const [loggedIn, setLoggedIn] = useState();
 
   if (loggedIn) {
@@ -79,6 +80,18 @@ export default function NavbarComponent() {
                 </span>
               </Link>
             </li>
+            {isAdmin && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/candidates">
+                  <span
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                  >
+                    <b> CANDIDATES </b>
+                  </span>
+                </Link>
+              </li>
+            )}
             {!loggedIn && (
               <li className="nav-item">
                 <Link className="nav-link" to="/login">

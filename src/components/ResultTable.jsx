@@ -1,8 +1,10 @@
 // src/components/ResultTable.js
 import React from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import './ResultTable.css'
 
-const ResultTable = ({ title, results }) => {
+const ResultTable = ({ title, results, isEditable }) => {
     return (
         <div>
             <h2>{title}</h2>
@@ -11,6 +13,8 @@ const ResultTable = ({ title, results }) => {
                     <tr>
                         <th>Candidate</th>
                         <th>Votes</th>
+                        {isEditable && <th>Edit</th>}
+                        {isEditable && <th>Delete</th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -18,6 +22,8 @@ const ResultTable = ({ title, results }) => {
                         <tr key={index}>
                             <td>{result.name}</td>
                             <td>{result.voteCount}</td>
+                            {isEditable && <td><EditIcon onClick={handleEditClick()} /></td>}
+                            {isEditable && <td><DeleteIcon onClick={handleDeleteClick} /></td>}
                         </tr>
                     ))}
                 </tbody>

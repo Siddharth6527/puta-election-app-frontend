@@ -21,7 +21,6 @@ const Results = () => {
   }, []);
 
 
-  console.log(results);
   const myStyle = {
     marginBottom: 60,
   };
@@ -30,19 +29,20 @@ const Results = () => {
     <div>
       <h2 className="my-5">Voting Results</h2>
       <div style={myStyle}>
-        <ResultTable title="President" results={results.president} />
+        <ResultTable title="President" results={results.president} isEditable={false} />
       </div>
       <div style={myStyle}>
-        <ResultTable title="Vice President" results={results.vicepresident} />
+        <ResultTable title="Vice President" results={results.vicepresident} isEditable={false} />
       </div>
       <div style={myStyle}>
         <ResultTable
           title="General Secretary"
           results={results.generalsecretary}
+          isEditable={false}
         />
       </div>
-      {/* <ResultTable title="Secretary" results={results.secretary} /> */}
-      {/* <ResultTable title="Treasurer" results={results.treasurer} /> */}
+      {/* <ResultTable title="Secretary" results={results.secretary} isEditable={false} /> */}
+      {/* <ResultTable title="Treasurer" results={results.treasurer} isEditable={false} /> */}
     </div>
   );
 };
