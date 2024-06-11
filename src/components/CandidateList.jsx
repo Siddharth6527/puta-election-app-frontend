@@ -13,10 +13,10 @@ import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
 import SnackBarComponent from './SnackBarComponent';
-import { convertToServerObject, deleteDataFromServer, updateDataInServer } from "../utils/serverFunctions";
+import { convertToServerObject, deleteCandidateFromServer, updateDataInServer } from "../utils/serverFunctions";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 
-export default function CandidateList({ isAdmin = true, initialRows }) {
+export default function CandidateList({ isAdmin = true, initialRows, position, isSlNoVisible = true }) {
 
     const navigate = useNavigate();
     const [snackBarOpen, setSnackBarOpen] = useState(false);
@@ -27,9 +27,13 @@ export default function CandidateList({ isAdmin = true, initialRows }) {
         setSnackBarOpen(false);
     };
 
+    const [MAX_VOTE, SetMAX_VOTE] = useState();
+
+
     const [rows, setRows] = React.useState([]);
     const [rowModesModel, setRowModesModel] = React.useState({});
     React.useEffect(() => {
+        SetMAX_VOTE(initialRows.reduce((max, obj) => Math.max(max, obj.VoteCount), -Infinity));
         setRows(initialRows);
     })
 
@@ -61,7 +65,8 @@ export default function CandidateList({ isAdmin = true, initialRows }) {
     const onConfirm = async () => {
         const row = rows.find(row => row.id == id);
         const objectId = row ? row._id : undefined;
-        const response = await deleteDataFromServer(objectId);
+        console.log(objectId);
+        const response = await deleteCandidateFromServer(objectId, position);
 
         if (response.ok) {
             console.log("Successfully deleted data")
@@ -171,13 +176,13 @@ export default function CandidateList({ isAdmin = true, initialRows }) {
                 }
 
                 return [
-                    <GridActionsCellItem
-                        icon={<EditIcon />}
-                        label="Edit"
-                        className="textPrimary"
-                        onClick={handleEditClick(id)}
-                        color="inherit"
-                    />,
+                    // <GridActionsCellItem
+                    //     icon={<EditIcon />}
+                    //     label="Edit"
+                    //     className="textPrimary"
+                    //     onClick={handleEditClick(id)}
+                    //     color="inherit"
+                    // />,
                     <GridActionsCellItem
                         icon={<DeleteIcon />}
                         label="Delete"
@@ -190,9 +195,10 @@ export default function CandidateList({ isAdmin = true, initialRows }) {
     ];
 
     const columnVisibilityModel = {
-        actions: isAdmin ? true : false
+        actions: isAdmin ? true : false,
+        id: false
     }
-    const pageSize = Math.min(15, initialRows.length);
+    const pageSize = Math.min(5, initialRows.length);
     return (
         <Box
             margin='0 auto'
@@ -221,15 +227,15 @@ export default function CandidateList({ isAdmin = true, initialRows }) {
                         },
                     },
                     sorting: {
-                        sortModel: [{ field: 'id', sort: 'asc' }],
+                        sortModel: [{ field: 'VoteCount', sort: 'desc' }],
                     },
                 }}
                 columnVisibilityModel={columnVisibilityModel}
                 pageSizeOptions={[pageSize]}
                 disableRowSelectionOnClick
-                // getRowClassName={(param) => {
-                //     return param.row.VoteStatus ? "voted" : "not-voted";
-                // }}
+                getRowClassName={(param) => {
+                    return param.row.VoteCount === MAX_VOTE ? "voted" : "not-voted";
+                }}
                 editMode="row"
                 rowModesModel={rowModesModel}
                 onRowModesModelChange={handleRowModesModelChange}

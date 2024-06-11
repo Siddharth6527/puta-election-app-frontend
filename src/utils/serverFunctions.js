@@ -1,5 +1,5 @@
-const BASE_URL = "http://localhost:3000/api/v1";
-// const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
+// const BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
 
 export const addDataToServer = async (form) => {
     try {
@@ -16,6 +16,48 @@ export const addDataToServer = async (form) => {
         console.log('error: ', error);
     }
 }
+
+const getPosId = (position) => {
+    if (position === "President" || position === "president") return '665a9aa31ba50da59be2d66b';
+    else if (position === "Vice President" || position === "vicePresident") return '665a9b6d1ba50da59be2d66d';
+    else if (position === "General Secretary" || position == "generalSecretary") return '665aed420ad0dd3ae812ce08';
+}
+
+export const addCandidateToServer = async (form) => {
+    try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        const posID = getPosId(data.position);
+        // const formattedPosition = data.position.toLowerCase().replace(/ /g, "");
+        // const oldData = await fetchCandidatesFromServer();
+        // console.log(oldData);
+        const newObject = {
+            candidates: [
+                // ...oldData[formattedPosition],
+                {
+                    name: data.name,
+                    college: data.college,
+                    collegeInitials: data.collegeInitials,
+                    voteCount: data.voteCount
+                }
+            ]
+        }
+        // console.log(newObject);
+
+        const response = await fetch(`${BASE_URL}/candidates/${posID}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newObject)
+        });
+        // console.log(response);
+        return response;
+    } catch (error) {
+        console.log('error: ', error);
+    }
+}
+
 
 export const updateDataInServer = async (data) => {
     try {
@@ -40,6 +82,15 @@ export const deleteDataFromServer = async (objectId) => {
                 'Content-Type': 'application/json'
             }
         });
+        return response;
+    } catch (error) {
+        console.log("error", error);
+    }
+}
+export const deleteCandidateFromServer = async (objectId, position) => {
+    try {
+        const posID = getPosId(position);
+        const response = await fetch(`${BASE_URL}/candidates/${posID}/${objectId}`);
         return response;
     } catch (error) {
         console.log("error", error);
@@ -74,6 +125,7 @@ export const fetchCandidatesFromServer = async () => {
     try {
         const response = await fetch(`${BASE_URL}/candidates`);
         const fetchedData = await response.json();
+        console.log(fetchedData);
         const data = changeFormat(fetchedData.data);
         return data;
     } catch (error) {
@@ -93,14 +145,14 @@ export const fetchVotersFromServer = async () => {
     }
 }
 
-const ids = {
-    president: '665a9aa31ba50da59be2d66b',
-    vicePresident: '665a9b6d1ba50da59be2d66d',
-    generalSecretary: '665aed420ad0dd3ae812ce08'
-}
+// const ids = {
+//     president: '665a9aa31ba50da59be2d66b',
+//     vicePresident: '665a9b6d1ba50da59be2d66d',
+//     generalSecretary: '665aed420ad0dd3ae812ce08'
+// }
 
 export const addVoteInServer = async (position, candidateID) => {
-    const positionID = ids[position];
+    const positionID = getPosId(position);
     try {
         const response = await fetch(`${BASE_URL}/candidates/votesUpdate/${positionID}/${candidateID}`);
         console.log(response);
@@ -108,3 +160,4 @@ export const addVoteInServer = async (position, candidateID) => {
         console.log(error);
     }
 }
+

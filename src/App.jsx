@@ -27,7 +27,7 @@ function App() {
           <Route path='/results' element={<Results />} />
           <Route path='/login' element={<Login />} />
           <Route path='/SignUp' element={<SignUp />} />
-          <Route path='/candidates' element={<Candidates />} />
+          {isAdmin && <Route path='/candidates' element={<Candidates />} />}
           <Route path='*' element={<Home />} />
         </Routes>
       </div>

@@ -3,6 +3,7 @@ import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogT
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { addVoteInServer } from '../utils/serverFunctions';
 import SnackBarComponent from './SnackBarComponent';
+import { useNavigate } from 'react-router-dom';
 
 const VotingComponent = ({ candidates }) => {
     const [votes, setVotes] = useState({
@@ -66,6 +67,7 @@ const VotingComponent = ({ candidates }) => {
         setPreviewEnabled(allFilled);
     };
 
+    const navigate = useNavigate();
     const handleSubmit = async () => {
         setIsLoading(true);
         try {
@@ -84,7 +86,8 @@ const VotingComponent = ({ candidates }) => {
             setSnackBarOpen(true);
         }
         setIsLoading(false);
-        // setSubmitted(true);
+        navigate('/results')
+
     };
 
     return (

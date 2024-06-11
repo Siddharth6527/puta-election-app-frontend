@@ -2,14 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import SnackBarComponent from './SnackBarComponent';
 import './AddVoterForm.css'
-import { addDataToServer } from '../utils/serverFunctions';
+import { addCandidateToServer } from '../utils/serverFunctions';
 
-export default function AddVoterForm({ SNo }) {
+export default function AddCandidateForm() {
 
+    const navigate = useNavigate();
     const [snackBarOpen, setSnackBarOpen] = useState(false);
     const [snackBarMessage, setSnackBarMessage] = useState('');
     const [snackBarSeverity, setSnackBarSeverity] = useState('success');
-    const navigate = useNavigate();
 
     const handleSnackBarClose = () => {
         setSnackBarOpen(false);
@@ -23,7 +23,7 @@ export default function AddVoterForm({ SNo }) {
             return;
         }
         evt.preventDefault();
-        const response = await addDataToServer(form);
+        const response = await addCandidateToServer(form);
         if (response.ok) {
             console.log("Successfully added data")
             setSnackBarMessage('Succesfully added voter!');
@@ -35,8 +35,23 @@ export default function AddVoterForm({ SNo }) {
             setSnackBarOpen(true);
             console.log("error in adding data to server");
         }
-        setTimeout(() => navigate(0), 1300);
+        setTimeout(() => navigate(0), 1000);
     };
+
+    const collegeInitials = {
+        'College of Technology': 'COT',
+        "College of Agriculture": 'COA',
+        "College of Basic Sciences and Humanities": 'CBSH',
+        "College of Agribusiness management": "CABM",
+        "College of Veternary and Animal Sciences": "CVAS",
+        "College of Fisheries": "COF",
+        "College of Community Sciences": "CCS"
+    }
+
+    const [collegeInitial, setCollegeInital] = useState('O');
+    function handleChange(collegeName) {
+        setCollegeInital(collegeInitials[collegeName]);
+    }
 
     return (
         <>
@@ -48,10 +63,6 @@ export default function AddVoterForm({ SNo }) {
                 className="needs-validation"
             >
                 <div className="mb-3">
-                    <label htmlFor="SNo" className="form-label">S.No</label>
-                    <input type="text" className="form-control" id="SNo" name="sno" value={SNo} readOnly />
-                </div>
-                <div className="mb-3">
                     <label htmlFor="Name" className="form-label">Name</label>
                     <input type="text" className="form-control" id="Name" name="name" required />
                     <div className="valid-feedback">
@@ -59,11 +70,7 @@ export default function AddVoterForm({ SNo }) {
                     </div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="Designation" className="form-label">Designation</label>
-                    <input type="text" className="form-control" id="Designation" name="designation" required />
-                </div>
-                <div className="mb-3">
-                    <select className="form-select" name="college" required>
+                    <select className="form-select" name="college" onChange={(e) => handleChange(e.target.value)} required>
                         <option value="">Select College</option>
                         <option value="College of Technology">College of Technology</option>
                         <option value="College of Agriculture">College of Agriculture</option>
@@ -78,43 +85,28 @@ export default function AddVoterForm({ SNo }) {
                     </div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="RNo" className="form-label" min='0'>Recipt No</label>
-                    <input type="number" className="form-control" id="RNo" name="receiptNo" min={0} required />
-                    <div className="invalid-feedback">
-                        should be greater than 0
-                    </div>
+                    <label htmlFor="SNo" className="form-label">College Initials</label>
+                    <input type="text" className="form-control" id="SNo" name="collegeInitials" value={collegeInitial} readOnly />
                 </div>
                 <div className="mb-3">
-                    <select className="form-select" name="memebershipCategory" required>
-                        <option value="">Select Membership Category</option>
-                        <option value="General">General</option>
-                        <option value="Other">Other</option>
+                    <select className="form-select" name="position" required>
+                        <option value="">Select Position</option>
+                        <option value="President">President</option>
+                        <option value="Vice President">Vice President</option>
+                        <option value="General Secretary">General Secretary</option>
+                        <option value="Secretary">Secretary</option>
+                        <option value="Treasurer">Treasurer</option>
                     </select>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">email</label>
-                    <input type="email" className="form-control" id="email" name="email" required />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">password</label>
-                    <input type="password" className="form-control" id="password" name="password" minLength={8} required />
                     <div className="invalid-feedback">
-                        password should have atleast 8 characters.
+                        Select one Position
                     </div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="password2" className="form-label">Confirm password</label>
-                    <input type="password" className="form-control" id="password2" name="passwordConfirm" minLength={8} required />
+                    <label htmlFor="RNo" className="form-label" min='0'>Vote Count</label>
+                    <input type="number" className="form-control" id="RNo" name="voteCount" placeholder='0' min={0} required />
                     <div className="invalid-feedback">
-                        password should have atleast 8 characters.
+                        should not be negative
                     </div>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="voted">Has the candidate voted?</label>
-                    <select className="form-select" id="voted" name="voted" required>
-                        <option value="false">No</option>
-                        <option value="true">Yes</option>
-                    </select>
                 </div>
                 <button className='btn btn-primary'>Submit</button>
             </form>

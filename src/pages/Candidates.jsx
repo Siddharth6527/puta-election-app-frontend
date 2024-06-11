@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import { fetchCandidatesFromServer } from "../utils/serverFunctions";
-import ResultTable from "../components/ResultTable";
 import CandidateList from "../components/CandidateList";
+import AddCandidate from "../components/AddCandidate";
+import './Candidate.css'
 
 export default function Candidates() {
 
@@ -42,29 +43,32 @@ export default function Candidates() {
         return newData;
     }
 
-    const myStyle = {
-        marginBottom: 60,
-    };
-    function show() {
-        console.log(results);
-    }
-
     return (
         <>
             <p className="text-center heading">List of all Candidate</p>
-            <button onClick={show}>show</button>
             <p className="text-center text-muted">
                 (You are an admin. You can add, edit and delete any candidate. )
             </p>
-
+            <AddCandidate />
             {results.president.length > 0 && (
-                <div>
-                    <CandidateList initialRows={results.president} />
-                    <CandidateList initialRows={results.vicepresident} />
-                    <CandidateList initialRows={results.generalsecretary} />
+                <div className="lists">
+                    <div className="list">
+                        <h2 className="heading">President</h2>
+                        <CandidateList initialRows={results.president} position={"president"} />
+                    </div>
+                    <div className="list">
+                        <h2 className="heading">Vice President</h2>
+                        <CandidateList initialRows={results.vicepresident} position={"vicePresident"} />
+                    </div>
+                    <div className="list">
+                        <h2 className="heading">General Secretary</h2>
+                        <CandidateList initialRows={results.generalsecretary} position={"generalSecretary"} />
+                    </div>
                 </div>
             )}
-            {results.president.length == 0 && <CircularProgress className="m-3" />}
+            <div>
+                {results.president.length == 0 && <CircularProgress className="m-3" />}
+            </div>
         </>
     )
 }

@@ -1,0 +1,15 @@
+.lists {
+    /* border: 1px solid red; */
+    margin: 2rem;
+}
+
+.list {
+    margin: 1rem;
+    /* border: 1px solid red; */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.heading {
+    margin-bottom: 1rem;
+}
