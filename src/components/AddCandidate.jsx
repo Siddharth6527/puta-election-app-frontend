@@ -1,19 +1,18 @@
 import Button from 'react-bootstrap/Button';
 import "./AddVoter.css";
-
 import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
 import Slide from '@mui/material/Slide';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import AddVoterForm from './AddVoterForm';
+import AddCandidateForm from './AddCandidateForm';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 
-export default function AddVoter({ SNo }) {
+export default function AddCandidate() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -27,7 +26,7 @@ export default function AddVoter({ SNo }) {
     return (
         <React.Fragment>
             <Button variant="primary" onClick={handleClickOpen}>
-                Add Voter
+                Add candidate
             </Button>
             <Dialog
                 fullScreen
@@ -44,7 +43,7 @@ export default function AddVoter({ SNo }) {
                 >
                     <CloseIcon className='mt-2' />
                 </IconButton>
-                <AddVoterForm SNo={SNo} />
+                <AddCandidateForm />
             </Dialog>
         </React.Fragment>
     );
