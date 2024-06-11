@@ -43,7 +43,7 @@ export default function AddVoterForm({ SNo }) {
             <form
                 id='addVoter'
                 // action="http://localhost:3000/api/v1/voters/signup"
-                action="https://puta-election-app-backend.onrender.com/api/v1/voters/signup"
+                // action="https://puta-election-app-backend.onrender.com/api/v1/voters/signup"
                 noValidate
                 onSubmit={handleSubmit}
                 method="POST"
