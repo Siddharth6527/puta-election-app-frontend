@@ -1,10 +1,12 @@
 .lists {
     /* border: 1px solid red; */
-    margin: 2rem;
+    width: 100%;
+    margin-top: 2rem;
+    /* margin: 1rem; */
 }
 
 .list {
-    margin: 1rem;
+    margin-top: 1rem;
     /* border: 1px solid red; */
     padding-top: 1rem;
     padding-bottom: 1rem;

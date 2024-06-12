@@ -34,7 +34,7 @@ export default function AddCandidate() {
                 onClose={handleClose}
                 TransitionComponent={Transition}
             >
-                <h2 className='text-center mt-5'> Add New Voter </h2>
+                <h2 className='text-center mt-5'> Add New Candidate </h2>
                 <IconButton
                     edge="start"
                     color="blue"

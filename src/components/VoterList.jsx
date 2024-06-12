@@ -217,7 +217,7 @@ export default function VoterList({ isAdmin, initialRows }) {
     const pageSize = Math.min(15, initialRows.length);
     return (
         <Box
-            margin='0 auto'
+            className="boxx"
             sx={{
                 textAlign: 'center',
                 width: "100%",
@@ -228,7 +228,6 @@ export default function VoterList({ isAdmin, initialRows }) {
                 '& .textPrimary': {
                     color: 'text.primary',
                 },
-
             }}>
             <DataGrid
                 sx={{ width: '100%', minHeight: 'max-content' }}
