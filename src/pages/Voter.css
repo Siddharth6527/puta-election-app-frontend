@@ -3,15 +3,23 @@
     font-weight: 500;
 }
 
+.list {
+    margin: 0 auto !important;
+    /* border: 1px solid red; */
+    width: 95% !important;
+    padding: 0;
+}
 
 @media screen and (max-width: 800px) {
     .list {
         zoom: 85%;
+        width: 100% !important;
     }
 }
 
 @media screen and (max-width: 576px) {
     .list {
+        width: 100% !important;
         zoom: 60%;
     }
 }

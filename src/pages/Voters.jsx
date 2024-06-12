@@ -40,7 +40,7 @@ export default function Voters({ isAdmin }) {
             }
             {isAdmin && <AddVoter SNo={initialRows.length + 1} />}
 
-            <div className="container list mt-3">
+            <div className="list mt-3">
                 {initialRows.length == 0 && <CircularProgress className="m-3" />}
                 {initialRows.length > 0 && <VoterList className='voterList' isAdmin={isAdmin} initialRows={initialRows} />}
             </div>

@@ -212,7 +212,7 @@ export default function CandidateList({ isAdmin = true, initialRows, position, i
                 '& .textPrimary': {
                     color: 'text.primary',
                 },
-
+                paddingX: '0'
             }}>
             <DataGrid
                 sx={{ width: '100%', minHeight: 'max-content' }}

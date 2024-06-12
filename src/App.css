@@ -1,20 +1,30 @@
 #root {
   /* max-width: 1280px; */
+  width: 100vw;
   max-width: auto;
   margin: 0 auto;
   text-align: center;
 }
 
 body {
+  box-sizing: border-box !important;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
 
 .mainBody {
-  width: 100vw !important;
-  margin: 0;
+  width: 100% !important;
+  margin: 0 auto;
+  padding: 1.2rem;
   min-height: 90vh !important;
-  padding: 1.5rem;
-  min-width: none !important;
   background-color: rgb(222, 222, 222);
+  /* border: 1px solid red !important; */
+}
+
+@media screen and (max-width: 576px) {
+  .mainBody {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
