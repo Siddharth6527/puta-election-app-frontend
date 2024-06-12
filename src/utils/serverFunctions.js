@@ -1,5 +1,5 @@
-const BASE_URL = "http://localhost:3000/api/v1";
-// const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
+// const BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
 
 export const addDataToServer = async (form) => {
     try {
