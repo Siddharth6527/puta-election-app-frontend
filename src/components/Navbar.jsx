@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function NavbarComponent({ isAdmin }) {
   const [loggedIn, setLoggedIn] = useState();
@@ -23,7 +24,7 @@ export default function NavbarComponent({ isAdmin }) {
   return (
     <nav className="navbar bg-info navbar-expand-lg">
       <div className="container-fluid">
-        <Link className="navbar-brand" href="#" style={{ color: "#343a40" }}>
+        <Link className="navbar-brand me-4" href="#" style={{ color: "#343a40" }}>
           PUTA-Elections 2024
         </Link>
         <button
@@ -46,7 +47,7 @@ export default function NavbarComponent({ isAdmin }) {
                   data-bs-toggle="collapse"
                 >
                   {" "}
-                  <b>HOME</b>
+                  HOME
                 </span>
               </Link>
             </li>
@@ -56,7 +57,7 @@ export default function NavbarComponent({ isAdmin }) {
                   data-bs-target="#navbarSupportedContent"
                   data-bs-toggle="collapse"
                 >
-                  <b>VOTERS</b>
+                  VOTERS
                 </span>
               </Link>
             </li>
@@ -66,7 +67,7 @@ export default function NavbarComponent({ isAdmin }) {
                   data-bs-target="#navbarSupportedContent"
                   data-bs-toggle="collapse"
                 >
-                  <b> VOTE</b>
+                  VOTE
                 </span>
               </Link>
             </li>
@@ -76,7 +77,7 @@ export default function NavbarComponent({ isAdmin }) {
                   data-bs-target="#navbarSupportedContent"
                   data-bs-toggle="collapse"
                 >
-                  <b> RESULTS </b>
+                  RESULTS
                 </span>
               </Link>
             </li>
@@ -87,48 +88,63 @@ export default function NavbarComponent({ isAdmin }) {
                     data-bs-target="#navbarSupportedContent"
                     data-bs-toggle="collapse"
                   >
-                    <b> CANDIDATES </b>
-                  </span>
-                </Link>
-              </li>
-            )}
-            {!loggedIn && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  <span
-                    data-bs-target="#navbarSupportedContent"
-                    data-bs-toggle="collapse"
-                  >
-                    <b> LOGIN </b>
-                  </span>
-                </Link>
-              </li>
-            )}
-            {loggedIn && (
-              <li className="nav-item" onClick={onLogoutHandler}>
-                <Link className="nav-link" to="/">
-                  <span
-                    data-bs-target="#navbarSupportedContent"
-                    data-bs-toggle="collapse"
-                  >
-                    <b> LOGOUT </b>
-                  </span>
-                </Link>
-              </li>
-            )}
-            {loggedIn && (
-              <li className="nav-item">
-                <Link className="nav-link">
-                  <span
-                    data-bs-target="#navbarSupportedContent"
-                    data-bs-toggle="collapse"
-                  >
-                    <b> Logged In As ({localStorage.getItem("username")}) </b>
+                    CANDIDATES
                   </span>
                 </Link>
               </li>
             )}
           </ul>
+          {!loggedIn && (
+            <div className="nav-item info-text">
+              <Link className="nav-link" to="/login">
+                <span
+                  data-bs-target="#navbarSupportedContent"
+                  data-bs-toggle="collapse"
+                >
+                  LOGIN
+                </span>
+              </Link>
+            </div>
+          )}
+          {loggedIn && (
+            <div className="nav-item">
+              <Link className="nav-link small">
+                <AccountCircleIcon />
+                <span
+                  data-bs-target="#navbarSupportedContent"
+                  data-bs-toggle="collapse"
+                  className="info-text"
+                >
+                  {localStorage.getItem("username")}
+                </span>
+              </Link>
+            </div>
+          )}
+          {loggedIn && (
+            <div className="nav-item" onClick={onLogoutHandler}>
+              <Link className="nav-link small" to="/changePassword">
+                <span
+                  data-bs-target="#navbarSupportedContent"
+                  data-bs-toggle="collapse"
+                  className="info-text"
+                >
+                  Change Password
+                </span>
+              </Link>
+            </div>
+          )}
+          {loggedIn && (
+            <div className="nav-item" onClick={onLogoutHandler}>
+              <Link className="nav-link" to="/">
+                <span
+                  data-bs-target="#navbarSupportedContent"
+                  data-bs-toggle="collapse"
+                >
+                  LOGOUT
+                </span>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

@@ -10,11 +10,14 @@ import SignUp from "./pages/SignUp";
 import Candidates from './pages/Candidates';
 import NavbarComponent from "./components/Navbar"
 import { Router } from '@mui/icons-material';
+import ChangePassword from './pages/ChangePassword';
+import ForgotPassword from './pages/ForgotPassword'
 
 function App() {
 
   // const isAdmin = false;
   const isAdmin = true;
+  const isLoggedin = (localStorage.getItem('authToken')) ? true : false;
 
   return (
     <HashRouter>
@@ -28,7 +31,9 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/SignUp' element={<SignUp />} />
           {isAdmin && <Route path='/candidates' element={<Candidates />} />}
-          <Route path='*' element={<Home />} />
+          {isLoggedin && <Route path='/changePassword' element={<ChangePassword />} />}
+          <Route path='/forgotPassword' element={<ForgotPassword />} />
+          {/* <Route path='*' element={<Home />} /> */}
         </Routes>
       </div>
     </HashRouter>

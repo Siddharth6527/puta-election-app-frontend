@@ -138,6 +138,7 @@ export const fetchVotersFromServer = async () => {
         const response = await fetch(`${BASE_URL}/voters`)
         const fetchedData = await response.json();
         const data = fetchedData.data.voters;
+        console.log(data);
         return data;
     } catch (error) {
         console.log('error', error);
@@ -145,11 +146,6 @@ export const fetchVotersFromServer = async () => {
     }
 }
 
-// const ids = {
-//     president: '665a9aa31ba50da59be2d66b',
-//     vicePresident: '665a9b6d1ba50da59be2d66d',
-//     generalSecretary: '665aed420ad0dd3ae812ce08'
-// }
 
 export const addVoteInServer = async (position, candidateID) => {
     const positionID = getPosId(position);
@@ -161,3 +157,54 @@ export const addVoteInServer = async (position, candidateID) => {
     }
 }
 
+export const loginInServer = async (body) => {
+    try {
+        const res = await fetch(`${BASE_URL}/voters/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        }
+        );
+        console.log(res);
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function extractReceipt(username) {
+    let parts = username.split('@');
+    return parts[1];
+}
+
+export const ChangePasswordInServer = async (body) => {
+    try {
+        if (body.NewPassword !== body.ConfirmNewPassword) {
+            return "Passwords do not match!"
+        }
+        const originalCredentials = {
+            email: body.email,
+            password: body.password
+        };
+        const res = await loginInServer(originalCredentials);
+        const responseData = await res.json();
+        if (responseData.status != 'success') {
+            return "Invalid Credentials"
+        }
+        const receipt = extractReceipt(body.email);
+        const allVoters = await fetchVotersFromServer();
+
+        const voter = allVoters.find(obj => obj.receiptNo == receipt);
+        console.log(voter);
+        if (!voter) { return "Invalid Credentials"; }
+
+        voter.password = body.NewPassword;
+        // const res2 = await updateDataInServer(voter);
+        // return res2.ok ? "success" : "error in changing password";
+        return "route not set yet!"
+    } catch (err) {
+        return "error";
+    }
+}
