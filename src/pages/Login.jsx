@@ -38,6 +38,9 @@ export default function Login() {
       if (responseData.status === "success") {
         localStorage.setItem("authToken", responseData.token);
         localStorage.setItem("username", data.get("email"));
+        localStorage.setItem("role", responseData.role);
+        localStorage.setItem('id', responseData.id);
+        localStorage.setItem('hasVoted', responseData.voted);
         setResMessage(responseData.status);
         setDisplaySnackbar(true);
         setTimeout(() => navigate('/'), 1000);

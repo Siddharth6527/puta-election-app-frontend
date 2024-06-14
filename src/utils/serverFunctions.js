@@ -1,7 +1,21 @@
 // import { resolveConfig } from "vite";
 
-const BASE_URL = "http://localhost:3000/api/v1";
-// const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
+// const BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
+
+
+const getToken = () => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        throw new Error('No token found, please login first');
+    }
+    return token;
+}
+const getPosId = (position) => {
+    if (position === "President" || position === "president") return '665a9aa31ba50da59be2d66b';
+    else if (position === "Vice President" || position === "vicePresident") return '665a9b6d1ba50da59be2d66d';
+    else if (position === "General Secretary" || position == "generalSecretary") return '665aed420ad0dd3ae812ce08';
+}
 
 export const addDataToServer = async (form) => {
     try {
@@ -21,20 +35,6 @@ export const addDataToServer = async (form) => {
     }
 }
 
-const getToken = () => {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-        throw new Error('No token found, please login first');
-    }
-    return token;
-}
-
-const getPosId = (position) => {
-    if (position === "President" || position === "president") return '665a9aa31ba50da59be2d66b';
-    else if (position === "Vice President" || position === "vicePresident") return '665a9b6d1ba50da59be2d66d';
-    else if (position === "General Secretary" || position == "generalSecretary") return '665aed420ad0dd3ae812ce08';
-}
-
 export const addCandidateToServer = async (form) => {
     try {
         const formData = new FormData(form);
@@ -50,9 +50,11 @@ export const addCandidateToServer = async (form) => {
                 }
             ]
         }
+        const token = getToken();
         const response = await fetch(`${BASE_URL}/candidates/${posID}`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(newObject)
@@ -63,12 +65,13 @@ export const addCandidateToServer = async (form) => {
     }
 }
 
-
 export const updateDataInServer = async (data) => {
     try {
+        const token = getToken();
         const response = await fetch(`${BASE_URL}/voters/${data._id}`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -81,9 +84,11 @@ export const updateDataInServer = async (data) => {
 
 export const deleteDataFromServer = async (objectId) => {
     try {
+        const token = getToken();
         const response = await fetch(`${BASE_URL}/voters/${objectId}`, {
             method: 'Delete',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         });
@@ -92,10 +97,18 @@ export const deleteDataFromServer = async (objectId) => {
         console.log("error", error);
     }
 }
+
 export const deleteCandidateFromServer = async (objectId, position) => {
     try {
+        const token = getToken();
         const posID = getPosId(position);
-        const response = await fetch(`${BASE_URL}/candidates/${posID}/${objectId}`);
+        const response = await fetch(`${BASE_URL}/candidates/${posID}/${objectId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
         return response;
     } catch (error) {
         console.log("error", error);
@@ -116,7 +129,6 @@ export const convertToServerObject = (obj) => {
         password: obj.password,
     }
 }
-
 
 const changeFormat = (arr) => {
     return arr.reduce((acc, current) => {
@@ -145,6 +157,7 @@ export const fetchCandidatesFromServer = async () => {
         return null;
     }
 }
+
 export const fetchVotersFromServer = async () => {
     try {
         const token = getToken();
@@ -157,14 +170,13 @@ export const fetchVotersFromServer = async () => {
         })
         const fetchedData = await response.json();
         const data = fetchedData.data.voters;
-        console.log(data);
+        // console.log(data);
         return data;
     } catch (error) {
         console.log('error', error);
         return null;
     }
 }
-
 
 export const addVoteInServer = async (position, candidateID) => {
     const positionID = getPosId(position);
@@ -177,7 +189,11 @@ export const addVoteInServer = async (position, candidateID) => {
                 'Content-Type': 'application/json'
             }
         });
-        console.log(response);
+        if (response.ok) {
+            localStorage.setItem('hasVoted', true);
+        }
+        return response;
+        // console.log(response);
     } catch (error) {
         console.log(error);
     }
@@ -193,7 +209,7 @@ export const loginInServer = async (body) => {
             body: JSON.stringify(body),
         }
         );
-        console.log(res);
+        // console.log(res);
         return res;
     } catch (err) {
         console.log(err);

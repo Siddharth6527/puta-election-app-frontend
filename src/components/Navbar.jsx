@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export default function NavbarComponent({ isAdmin }) {
+export default function NavbarComponent({ isAdmin, isDev, hasVoted }) {
   const [loggedIn, setLoggedIn] = useState();
 
   if (loggedIn) {
@@ -61,16 +61,18 @@ export default function NavbarComponent({ isAdmin }) {
                 </span>
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/vote">
-                <span
-                  data-bs-target="#navbarSupportedContent"
-                  data-bs-toggle="collapse"
-                >
-                  VOTE
-                </span>
-              </Link>
-            </li>
+            {!hasVoted && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/vote">
+                  <span
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                  >
+                    VOTE
+                  </span>
+                </Link>
+              </li>
+            )}
             <li className="nav-item">
               <Link className="nav-link" to="/results">
                 <span
@@ -81,7 +83,7 @@ export default function NavbarComponent({ isAdmin }) {
                 </span>
               </Link>
             </li>
-            {isAdmin && (
+            {(isAdmin || isDev) && (
               <li className="nav-item">
                 <Link className="nav-link" to="/candidates">
                   <span
