@@ -11,6 +11,9 @@ const Vote = () => {
         secretary: [],
         treasurer: [],
     });
+    function hasVoted() {
+        return (localStorage.getItem('hasVoted') == 'true') ? true : false;
+    }
     const [candidatesLoaded, setCandidatesLoaded] = useState(false);
     useMemo(() => {
         const fetchData = async () => {
@@ -24,8 +27,13 @@ const Vote = () => {
 
     return (
         <div>
-            {!candidatesLoaded && <CircularProgress className='m-3' />}
-            {candidatesLoaded && <VotingComponent candidates={candidates} />}
+            {!hasVoted() && !candidatesLoaded && <CircularProgress className='m-3' />}
+            {!hasVoted() && candidatesLoaded && <VotingComponent candidates={candidates} />}
+            {hasVoted() && (
+                <div className='mt-4'>
+                    <h3 className='text-center'>You have already voted once!</h3>
+                </div>
+            )}
         </div>
     );
 };

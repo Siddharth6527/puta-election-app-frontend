@@ -235,7 +235,7 @@ export default function CandidateList({ isAdmin = true, initialRows, position, i
                 pageSizeOptions={[pageSize]}
                 disableRowSelectionOnClick
                 getRowClassName={(param) => {
-                    return param.row.VoteCount === MAX_VOTE ? "voted" : "not-voted";
+                    return (param.row.VoteCount === MAX_VOTE && MAX_VOTE !== 0) ? "voted" : "not-voted";
                 }}
                 editMode="row"
                 rowModesModel={rowModesModel}

@@ -128,19 +128,6 @@ export default function ChangePassword() {
                         >
                             Change Password
                         </Button>
-                        {/* <Grid container>
-                            <Grid item xs>
-                                <Box height={20} />
-                                <Typography variant="subtitle.1" color="#212529">
-                                    Your Username is First Name followed by symbol(@), and then your
-                                    Receipt ID
-                                </Typography>
-                                <br />
-                                <Typography variant="subtitle.1" color="#212529">
-                                    For example: rohan@263, or siddharth@321
-                                </Typography>
-                            </Grid>
-                        </Grid> */}
                     </Box>
                     {displaySnackbar === true && (
                         <SnackBarComponent

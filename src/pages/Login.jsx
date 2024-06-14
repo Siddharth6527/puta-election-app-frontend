@@ -13,6 +13,7 @@ import SnackBarComponent from "../components/SnackBarComponent";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginInServer } from "../utils/serverFunctions";
+import { CircularProgress } from "@mui/material";
 
 const defaultTheme = createTheme();
 
@@ -22,6 +23,7 @@ export default function Login() {
 
   const [displaySnackbar, setDisplaySnackbar] = useState(false);
   const [resMessage, setResMessage] = useState("success");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ export default function Login() {
 
     let responseData = "";
     try {
+      setIsLoading(true);
       const res = await loginInServer(body);
       responseData = await res.json();
       if (responseData.status === "success") {
@@ -50,6 +53,7 @@ export default function Login() {
         setResMessage(responseData.message);
         setDisplaySnackbar(true);
       }
+      setIsLoading(false);
     } catch (err) {
       console.error("Error: ", err);
     }
@@ -116,20 +120,20 @@ export default function Login() {
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
-                <Link to="/SignUp" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
             </Grid>
-            <Typography variant="subtitle.1" color="#212529">
-              Your Username is First Name followed by symbol(@), and then your
-              Receipt ID
-            </Typography>
-            <br />
-            <Typography variant="subtitle.1" color="#212529">
-              For example: rohan@263, or siddharth@321
-            </Typography>
+            {!isLoading && (
+              <div>
+                <Typography variant="subtitle.1" color="#212529">
+                  Your Username is First Name followed by symbol(@), and then your
+                  Receipt ID
+                </Typography>
+                <br />
+                <Typography variant="subtitle.1" color="#212529">
+                  For example: rohan@263, or siddharth@321
+                </Typography>
+              </div>
+            )}
+            {isLoading && <CircularProgress className="m-3" />}
           </Box>
           {displaySnackbar === true && (
             <SnackBarComponent
