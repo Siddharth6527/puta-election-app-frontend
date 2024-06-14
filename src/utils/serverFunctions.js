@@ -1,5 +1,5 @@
-// const BASE_URL = "http://localhost:3000/api/v1";
-const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
+const BASE_URL = "http://localhost:3000/api/v1";
+// const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
 
 
 const getToken = () => {
@@ -176,22 +176,27 @@ export const fetchVotersFromServer = async () => {
     }
 }
 
-export const addVoteInServer = async (position, candidateID) => {
+export const addVoteInServer = async (position, candidateID, voterID) => {
     const positionID = getPosId(position);
+    const data = {
+        posId: positionID,
+        canId: candidateID,
+        voterId: voterID
+    }
     try {
         const token = getToken();
-        const response = await fetch(`${BASE_URL}/candidates/votesUpdate/${positionID}/${candidateID}`, {
-            method: 'GET',
+        const response = await fetch(`${BASE_URL}/candidates/votesUpdate`, {
+            method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
         });
         if (response.ok) {
             localStorage.setItem('hasVoted', true);
         }
         return response;
-        // console.log(response);
     } catch (error) {
         console.log(error);
     }

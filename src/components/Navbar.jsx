@@ -23,7 +23,7 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
   };
 
   return (
-    <nav className="navbar bg-info navbar-expand-lg">
+    <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         <Link className="navbar-brand me-4" href="#" style={{ color: "#343a40" }}>
           PUTA-Elections 2024
@@ -41,7 +41,7 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
+            <li className="nav-item ms-3">
               <Link className="nav-link active" aria-current="page" to="/">
                 <span
                   data-bs-target="#navbarSupportedContent"
@@ -64,18 +64,18 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
                 </Link>
               </li>
             )}
-            {!hasVoted && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/vote">
-                  <span
-                    data-bs-target="#navbarSupportedContent"
-                    data-bs-toggle="collapse"
-                  >
-                    VOTE
-                  </span>
-                </Link>
-              </li>
-            )}
+            {/* {!hasVoted && ( */}
+            <li className="nav-item">
+              <Link className="nav-link" to="/vote">
+                <span
+                  data-bs-target="#navbarSupportedContent"
+                  data-bs-toggle="collapse"
+                >
+                  VOTE
+                </span>
+              </Link>
+            </li>
+            {/* )} */}
             {isLoggedin && (
               <li className="nav-item">
                 <Link className="nav-link" to="/results">
@@ -113,45 +113,50 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
               </Link>
             </div>
           )}
-          {loggedIn && (
-            <div className="nav-item">
-              <Link className="nav-link small">
-                <AccountCircleIcon />
-                <span
-                  data-bs-target="#navbarSupportedContent"
-                  data-bs-toggle="collapse"
-                  className="info-text"
-                >
-                  {localStorage.getItem("username")}
-                </span>
-              </Link>
+
+          {isLoggedin && (
+            <div className="dropdown-center">
+              <button className="btn nav-item p-0 m-0" data-bs-toggle="dropdown">
+                <Link className="nav-link">
+                  <AccountCircleIcon />
+                  <span
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                    className="info-text"
+                  >
+                    {localStorage.getItem("username")}
+                  </span>
+                  <span className="fs-6 ms-2">&#9660;</span>
+                </Link>
+              </button>
+              <div className="dropdown-menu dropdown-menu-end p-0">
+                <div className="nav-item menu-item text-center">
+                  <Link className="nav-link" to="/changePassword">
+                    <span
+                      data-bs-target="#navbarSupportedContent"
+                      data-bs-toggle="collapse"
+                      className="info-text"
+                    >
+                      Change Password
+                    </span>
+                  </Link>
+                </div>
+
+                <div className="nav-item menu-item text-center info-text" onClick={onLogoutHandler}>
+                  <Link className="nav-link" to="/">
+                    <span
+                      data-bs-target="#navbarSupportedContent"
+                      data-bs-toggle="collapse"
+                      className="info-text"
+                    >
+                      LOGOUT
+                    </span>
+                  </Link>
+                </div>
+              </div>
             </div>
           )}
-          {loggedIn && (
-            <div className="nav-item">
-              <Link className="nav-link small" to="/changePassword">
-                <span
-                  data-bs-target="#navbarSupportedContent"
-                  data-bs-toggle="collapse"
-                  className="info-text"
-                >
-                  Change Password
-                </span>
-              </Link>
-            </div>
-          )}
-          {loggedIn && (
-            <div className="nav-item" onClick={onLogoutHandler}>
-              <Link className="nav-link" to="/">
-                <span
-                  data-bs-target="#navbarSupportedContent"
-                  data-bs-toggle="collapse"
-                >
-                  LOGOUT
-                </span>
-              </Link>
-            </div>
-          )}
+
         </div>
       </div>
     </nav>

@@ -12,7 +12,8 @@ export default function Voters({ isAdmin }) {
     useEffect(() => {
         async function display() {
             const data = await fetchVotersFromServer();
-            setInitialRows(data.map((voter, i) => {
+            const voters = data.filter((voter) => voter.role == "voter");
+            setInitialRows(voters.map((voter, i) => {
                 return {
                     id: i + 1,
                     Name: voter.name,
@@ -23,7 +24,8 @@ export default function Voters({ isAdmin }) {
                     VoteStatus: voter.voted,
                     email: voter.email,
                     password: voter.password,
-                    _id: voter._id
+                    _id: voter._id,
+                    role: voter.role
                 }
             }))
         }

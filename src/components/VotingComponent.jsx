@@ -68,14 +68,17 @@ const VotingComponent = ({ candidates }) => {
     };
 
     const navigate = useNavigate();
+
     const handleSubmit = async () => {
         setIsLoading(true);
         try {
+            const voterId = localStorage.getItem('id');
             for (let key in votes) {
                 if (voteID.hasOwnProperty(key)) {
-                    await addVoteInServer(key, voteID[key]);
+                    await addVoteInServer(key, voteID[key], voterId);
                 }
             }
+
             setSnackBarMessage('Voted Successfully!');
             setSnackBarSeverity('success');
             setSnackBarOpen(true);
@@ -87,6 +90,7 @@ const VotingComponent = ({ candidates }) => {
         }
         setIsLoading(false);
         navigate('/results')
+        setTimeout(() => navigate(0), 1000);
 
     };
 
