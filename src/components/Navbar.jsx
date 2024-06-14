@@ -121,7 +121,7 @@ export default function NavbarComponent({ isAdmin }) {
             </div>
           )}
           {loggedIn && (
-            <div className="nav-item" onClick={onLogoutHandler}>
+            <div className="nav-item">
               <Link className="nav-link small" to="/changePassword">
                 <span
                   data-bs-target="#navbarSupportedContent"

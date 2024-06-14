@@ -26,29 +26,29 @@ export default function ChangePassword() {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const body = {
-            email: data.get("email"),
-            password: data.get("password"),
-            NewPassword: data.get("NewPassword"),
-            ConfirmNewPassword: data.get("ConfirmNewPassword")
+            // email: data.get("email"),
+            passwordCurrent: data.get("password"),
+            password: data.get("NewPassword"),
+            passwordConfirm: data.get("ConfirmNewPassword")
         };
 
         let responseData = "";
         try {
             responseData = await ChangePasswordInServer(body);
-            if (responseData === "success") {
+            if (responseData.status === "success") {
                 localStorage.setItem("authToken", responseData.token);
                 localStorage.setItem("username", data.get("email"));
-                setResMessage(responseData);
+                // setResMessage(responseData.message);
                 setDisplaySnackbar(true);
                 setTimeout(() => navigate('/'), 1000);
                 setTimeout(() => navigate(0), 1000);
             }
             else {
-                setResMessage(responseData);
+                setResMessage(responseData.message);
                 setDisplaySnackbar(true);
             }
         } catch (err) {
-            console.error("Error: ", err);
+            console.error("Error: ", responseData.message);
         }
     }
 
@@ -87,6 +87,8 @@ export default function ChangePassword() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                        // value={localStorage.getItem('username')}
+                        // disabled
                         />
                         <TextField
                             margin="normal"
@@ -105,7 +107,7 @@ export default function ChangePassword() {
                             name="NewPassword"
                             label="New Password"
                             type="password"
-                            id="password"
+                            id="password1"
                             autoComplete="current-password"
                         />
                         <TextField
@@ -115,7 +117,7 @@ export default function ChangePassword() {
                             name="ConfirmNewPassword"
                             label="Confirm new password"
                             type="password"
-                            id="password"
+                            id="password2"
                             autoComplete="current-password"
                         />
                         <Button
@@ -126,7 +128,7 @@ export default function ChangePassword() {
                         >
                             Change Password
                         </Button>
-                        <Grid container>
+                        {/* <Grid container>
                             <Grid item xs>
                                 <Box height={20} />
                                 <Typography variant="subtitle.1" color="#212529">
@@ -138,14 +140,14 @@ export default function ChangePassword() {
                                     For example: rohan@263, or siddharth@321
                                 </Typography>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                     </Box>
                     {displaySnackbar === true && (
                         <SnackBarComponent
                             open={displaySnackbar}
                             message={resMessage}
                             autoHideDuration={6000}
-                            severity={resMessage === "success" ? "success" : "error"}
+                            severity={resMessage == "success" ? "success" : "error"}
                             onClose={onCloseHandler}
                         />
                     )}
