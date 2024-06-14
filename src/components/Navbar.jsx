@@ -76,16 +76,18 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
                 </Link>
               </li>
             )}
-            <li className="nav-item">
-              <Link className="nav-link" to="/results">
-                <span
-                  data-bs-target="#navbarSupportedContent"
-                  data-bs-toggle="collapse"
-                >
-                  RESULTS
-                </span>
-              </Link>
-            </li>
+            {isLoggedin && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/results">
+                  <span
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                  >
+                    RESULTS
+                  </span>
+                </Link>
+              </li>
+            )}
             {(isAdmin || isDev) && (
               <li className="nav-item">
                 <Link className="nav-link" to="/candidates">
