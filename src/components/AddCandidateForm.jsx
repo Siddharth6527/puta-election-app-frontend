@@ -24,16 +24,17 @@ export default function AddCandidateForm() {
         }
         evt.preventDefault();
         const response = await addCandidateToServer(form);
+        const responseData = await response.json();
         if (response.ok) {
             console.log("Successfully added data")
-            setSnackBarMessage('Succesfully added voter!');
+            setSnackBarMessage("Successfully added data!");
             setSnackBarSeverity('success');
             setSnackBarOpen(true);
         } else {
-            setSnackBarMessage('Failed to submit form.');
+            setSnackBarMessage(responseData.message);
             setSnackBarSeverity('error');
             setSnackBarOpen(true);
-            console.log("error in adding data to server");
+            console.log(responseData.message);
         }
         setTimeout(() => navigate(0), 1000);
     };

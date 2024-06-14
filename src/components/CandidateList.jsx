@@ -65,8 +65,9 @@ export default function CandidateList({ isAdmin = true, initialRows, position, i
     const onConfirm = async () => {
         const row = rows.find(row => row.id == id);
         const objectId = row ? row._id : undefined;
-        console.log(objectId);
         const response = await deleteCandidateFromServer(objectId, position);
+        // const responseData = await response.json();
+        // console.log(responseData);
 
         if (response.ok) {
             console.log("Successfully deleted data")
@@ -74,12 +75,12 @@ export default function CandidateList({ isAdmin = true, initialRows, position, i
             setSnackBarSeverity('success');
             setSnackBarOpen(true);
         } else {
-            setSnackBarMessage(`Failed to delete record`);
+            setSnackBarMessage('error in deleting');
             setSnackBarSeverity('error');
             setSnackBarOpen(true);
-            console.log("error in deleting data");
+            console.log('error in deleting');
         }
-        setTimeout(() => navigate(0), 500);
+        setTimeout(() => navigate(0), 1000);
     }
 
     const handleCancelClick = (id) => () => {

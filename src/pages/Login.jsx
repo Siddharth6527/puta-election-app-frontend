@@ -6,17 +6,20 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SnackBarComponent from "../components/SnackBarComponent";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginInServer } from "../utils/serverFunctions";
 
 const defaultTheme = createTheme();
 
 export default function Login() {
-  // const [loggedIn, setLoggedIn] = useState(false);
+
   const navigate = useNavigate();
+
   const [displaySnackbar, setDisplaySnackbar] = useState(false);
   const [resMessage, setResMessage] = useState("success");
 
@@ -30,45 +33,27 @@ export default function Login() {
 
     let responseData = "";
     try {
-      const res = await fetch("http://127.0.0.1:3000/api/v1/voters/login", {
-        // const res = await fetch(
-        // "https://puta-election-app-backend.onrender.com/api/v1/voters/login",
-        // {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-      );
-
+      const res = await loginInServer(body);
       responseData = await res.json();
-      //   console.log(data);
       if (responseData.status === "success") {
-        // set the token in the local storage
-        // setLoggedIn(true);
         localStorage.setItem("authToken", responseData.token);
         localStorage.setItem("username", data.get("email"));
-        setTimeout(() => {
-          navigate("/");
-        }, 5000);
+        localStorage.setItem("role", responseData.role);
+        localStorage.setItem('id', responseData.id);
+        localStorage.setItem('hasVoted', responseData.voted);
+        setResMessage(responseData.status);
+        setDisplaySnackbar(true);
+        setTimeout(() => navigate('/'), 1000);
+        setTimeout(() => navigate(0), 1000);
+      }
+      else {
+        setResMessage(responseData.message);
+        setDisplaySnackbar(true);
       }
     } catch (err) {
       console.error("Error: ", err);
     }
-
-    if (responseData.status === "success") {
-      setResMessage(responseData.status);
-    } else {
-      setResMessage(responseData.message);
-    }
-    setDisplaySnackbar(true);
-
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
-  };
+  }
 
   const onCloseHandler = () => {
     setDisplaySnackbar(false);
@@ -101,7 +86,7 @@ export default function Login() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Username"
               name="email"
               autoComplete="email"
               autoFocus
@@ -124,27 +109,27 @@ export default function Login() {
             >
               Sign In
             </Button>
-            <Grid container>
+            <Grid container className="mb-5">
               <Grid item xs>
-                <Box height={20} />
-                <Typography variant="subtitle.1" color="#212529">
-                  Your Email is First Name followed by symbol(@), and then your
-                  Receipt ID
-                </Typography>
-                <br />
-                <Typography variant="subtitle.1" color="#212529">
-                  For example: rohan@263, or siddharth@321
-                </Typography>
-                {/* <Link href="#" variant="body2">
+                {/* <Box height={20} > */}
+                <Link to="/forgotPassword" variant="body2">
                   Forgot password?
-                </Link> */}
+                </Link>
               </Grid>
-              {/* <Grid item>
+              <Grid item>
                 <Link to="/SignUp" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
-              </Grid> */}
+              </Grid>
             </Grid>
+            <Typography variant="subtitle.1" color="#212529">
+              Your Username is First Name followed by symbol(@), and then your
+              Receipt ID
+            </Typography>
+            <br />
+            <Typography variant="subtitle.1" color="#212529">
+              For example: rohan@263, or siddharth@321
+            </Typography>
           </Box>
           {displaySnackbar === true && (
             <SnackBarComponent

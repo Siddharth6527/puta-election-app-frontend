@@ -92,7 +92,7 @@ export default function AddVoterForm({ SNo }) {
                     </select>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">email</label>
+                    <label htmlFor="email" className="form-label">username</label>
                     <input type="email" className="form-control" id="email" name="email" required />
                 </div>
                 <div className="mb-3">
