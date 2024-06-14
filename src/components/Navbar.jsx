@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export default function NavbarComponent({ isAdmin, isDev, hasVoted }) {
+export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }) {
   const [loggedIn, setLoggedIn] = useState();
-
+  const navigate = useNavigate();
   if (loggedIn) {
     if (!localStorage.getItem("authToken")) {
       setLoggedIn(false);
@@ -19,6 +19,7 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted }) {
   const onLogoutHandler = () => {
     localStorage.clear();
     setLoggedIn(false);
+    navigate(0);
   };
 
   return (
@@ -51,16 +52,18 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted }) {
                 </span>
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/voters">
-                <span
-                  data-bs-target="#navbarSupportedContent"
-                  data-bs-toggle="collapse"
-                >
-                  VOTERS
-                </span>
-              </Link>
-            </li>
+            {isLoggedin && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/voters">
+                  <span
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                  >
+                    VOTERS
+                  </span>
+                </Link>
+              </li>
+            )}
             {!hasVoted && (
               <li className="nav-item">
                 <Link className="nav-link" to="/vote">

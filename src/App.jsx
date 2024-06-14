@@ -25,11 +25,11 @@ function App() {
 
   return (
     <HashRouter>
-      <NavbarComponent isAdmin={isAdmin} isDev={isDev} hasVoted={hasVoted} />
+      <NavbarComponent isAdmin={isAdmin} isDev={isDev} hasVoted={hasVoted} isLoggedin={isLoggedin} />
       <div className="mainBody border">
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route exact path='/voters' element={<Voters isAdmin={isAdmin} />} />
+          {isLoggedin && <Route exact path='/voters' element={<Voters isAdmin={isAdmin} />} />}
           {(!hasVoted) && <Route path='/vote' element={<Vote />} />}
           <Route path='/results' element={<Results />} />
           <Route path='/login' element={<Login />} />
