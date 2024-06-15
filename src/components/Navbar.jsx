@@ -37,11 +37,11 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon navbar-dark"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item ms-3">
+            <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">
                 <span
                   data-bs-target="#navbarSupportedContent"
@@ -64,31 +64,19 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
                 </Link>
               </li>
             )}
-            {/* {!hasVoted && ( */}
-            <li className="nav-item">
-              <Link className="nav-link" to="/vote">
-                <span
-                  data-bs-target="#navbarSupportedContent"
-                  data-bs-toggle="collapse"
-                >
-                  VOTE
-                </span>
-              </Link>
-            </li>
-            {/* )} */}
-            {isLoggedin && (
+            {!hasVoted && isLoggedin && (
               <li className="nav-item">
-                <Link className="nav-link" to="/results">
+                <Link className="nav-link" to="/vote">
                   <span
                     data-bs-target="#navbarSupportedContent"
                     data-bs-toggle="collapse"
                   >
-                    RESULTS
+                    VOTE
                   </span>
                 </Link>
               </li>
             )}
-            {(isAdmin || isDev) && (
+            {!isLoggedin && isAdmin && (
               <li className="nav-item">
                 <Link className="nav-link" to="/candidates">
                   <span
