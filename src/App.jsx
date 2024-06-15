@@ -35,11 +35,11 @@ function App() {
               element={<Voters isAdmin={isAdmin} />}
             />
           )}
-          {<Route path="/vote" element={<Vote />} />}
-          <Route path="/results" element={<Results />} />
+          {isLoggedin && <Route path="/vote" element={<Vote />} />}
+          {isLoggedin && <Route path="/results" element={<Results />} />}
           <Route path="/login" element={<Login />} />
           {/* <Route path='/SignUp' element={<SignUp />} /> */}
-          {(isAdmin || isDev) && (
+          {(isAdmin || isDev) && isLoggedin && (
             <Route path="/candidates" element={<Candidates />} />
           )}
           {isLoggedin && (
