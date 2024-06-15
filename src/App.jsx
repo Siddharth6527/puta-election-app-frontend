@@ -20,7 +20,7 @@ function App() {
 
   return (
     <HashRouter>
-      <NavbarComponent isAdmin={isAdmin} isDev={isDev} hasVoted={hasVoted} isLoggedin={isLoggedin} />
+      <NavbarComponent isAdmin={isAdmin} hasVoted={hasVoted} />
       <div className="mainBody border">
         <Routes>
           <Route path='/' element={<Home />} />

@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }) {
+export default function NavbarComponent({ isAdmin }) {
   const [loggedIn, setLoggedIn] = useState();
   const navigate = useNavigate();
   if (loggedIn) {
@@ -52,7 +52,7 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
                 </span>
               </Link>
             </li>
-            {isLoggedin && (
+            {loggedIn && (
               <li className="nav-item">
                 <Link className="nav-link" to="/voters">
                   <span
@@ -64,7 +64,7 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
                 </Link>
               </li>
             )}
-            {!hasVoted && isLoggedin && (
+            {loggedIn && (
               <li className="nav-item">
                 <Link className="nav-link" to="/vote">
                   <span
@@ -76,7 +76,19 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
                 </Link>
               </li>
             )}
-            {!isLoggedin && isAdmin && (
+            {loggedIn && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/results">
+                  <span
+                    data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                  >
+                    RESULTS
+                  </span>
+                </Link>
+              </li>
+            )}
+            {loggedIn && isAdmin && (
               <li className="nav-item">
                 <Link className="nav-link" to="/candidates">
                   <span
@@ -102,7 +114,7 @@ export default function NavbarComponent({ isAdmin, isDev, hasVoted, isLoggedin }
             </div>
           )}
 
-          {isLoggedin && (
+          {loggedIn && (
             <div className="dropdown-center">
               <button className="btn nav-item p-0 m-0" data-bs-toggle="dropdown">
                 <Link className="nav-link">
