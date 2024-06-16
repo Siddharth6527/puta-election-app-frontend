@@ -264,3 +264,19 @@ export const toggleResultsVisiblity = async (value) => {
         console.log(err);
     }
 }
+
+export const resetVotes = async () => {
+    try {
+        const token = getToken();
+        const res = await fetch(`${BASE_URL}/candidates/resetVotes`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+            }
+        });
+        return res;
+    } catch (err) {
+        console.log("error", err);
+    }
+}
