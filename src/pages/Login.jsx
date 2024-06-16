@@ -116,9 +116,7 @@ export default function Login() {
             <Grid container className="mb-5">
               <Grid item xs>
                 {/* <Box height={20} > */}
-                <Link to="/forgotPassword" variant="body2">
-                  Forgot password?
-                </Link>
+
               </Grid>
             </Grid>
             {!isLoading && (
