@@ -147,7 +147,7 @@ export const fetchCandidatesFromServer = async () => {
             }
         });
         const fetchedData = await response.json();
-        console.log(fetchedData);
+        // console.log(fetchedData);
         const data = changeFormat(fetchedData.data);
         return data;
     } catch (error) {
@@ -237,5 +237,30 @@ export const ChangePasswordInServer = async (body) => {
         return responseData;
     } catch (err) {
         return "error";
+    }
+}
+
+export const getResultVisibility = async () => {
+    try {
+        const allVoters = await fetchVotersFromServer();
+        const admin = allVoters.find((voter) => voter.role === 'dev');
+        const visiblity = admin.voted;
+        return visiblity;
+    } catch (err) {
+        console.log("error", err);
+    }
+};
+
+export const toggleResultsVisiblity = async (value) => {
+    try {
+        const allVoters = await fetchVotersFromServer();
+        const admin = allVoters.find((voter) => voter.role === 'dev');
+        const data = { ...admin, voted: (value) }
+        const res = await updateDataInServer(data);
+        const responseData = await res.json();
+        if (res.ok) console.log("success changed visiblity");
+        else console.log("error in change visibility")
+    } catch (err) {
+        console.log(err);
     }
 }
