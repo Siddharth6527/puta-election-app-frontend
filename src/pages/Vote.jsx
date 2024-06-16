@@ -14,6 +14,9 @@ const Vote = () => {
     function hasVoted() {
         return (localStorage.getItem('hasVoted') == 'true') ? true : false;
     }
+    function isAdmin() {
+        return (localStorage.getItem('role') == 'voter') ? false : true;
+    }
     const [candidatesLoaded, setCandidatesLoaded] = useState(false);
     useMemo(() => {
         const fetchData = async () => {
@@ -27,9 +30,14 @@ const Vote = () => {
 
     return (
         <div>
-            {!hasVoted() && !candidatesLoaded && <CircularProgress className='m-3' />}
-            {!hasVoted() && candidatesLoaded && <VotingComponent candidates={candidates} />}
-            {hasVoted() && (
+            {!hasVoted() && !isAdmin() && !candidatesLoaded && <CircularProgress className='m-3' />}
+            {!hasVoted() && !isAdmin() && candidatesLoaded && <VotingComponent candidates={candidates} />}
+            {isAdmin() && (
+                <div className='mt-4'>
+                    <h3 className='text-center'>Admin Cannot Vote!</h3>
+                </div>
+            )}
+            {hasVoted() && !isAdmin() && (
                 <div className='mt-4'>
                     <h3 className='text-center'>You have already voted once!</h3>
                 </div>
