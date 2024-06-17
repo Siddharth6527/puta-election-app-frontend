@@ -34,7 +34,7 @@ function App() {
             <Route path='/results' element={<Results />} />
             <Route path='/login' element={<Login />} />
             {/* <Route path='/SignUp' element={<SignUp />} /> */}
-            {(isAdmin || isDev) && <Route path='/candidates' element={<Candidates />} />}
+            {(isAdmin || isDev) && <Route path='/candidates' element={<Candidates isAdmin={isAdmin} />} />}
             {isLoggedin && <Route path='/changePassword' element={<ChangePassword />} />}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
