@@ -14,11 +14,10 @@ import ErrorBoundary from './utils/errorBoundary';
 import NotFoundPage from './utils/NotFound';
 
 function App() {
-
-  const isDev = (localStorage.getItem('role') == 'dev') ? true : false;
-  const isAdmin = (localStorage.getItem('role') == 'admin' || isDev) ? true : false;
-  const isLoggedin = (localStorage.getItem('authToken')) ? true : false;
-  const hasVoted = (localStorage.getItem('hasVoted') == 'false') ? false : true;
+  const isDev = localStorage.getItem("role") == "dev" ? true : false;
+  const isAdmin = localStorage.getItem("role") == "admin" ? true : false;
+  const isLoggedin = localStorage.getItem("authToken") ? true : false;
+  const hasVoted = localStorage.getItem("hasVoted") == "false" ? false : true;
 
   window.onload = function () { checkToken(); }
 
@@ -44,4 +43,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
