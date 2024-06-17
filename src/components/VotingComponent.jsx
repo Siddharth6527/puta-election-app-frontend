@@ -24,8 +24,7 @@ const VotingComponent = ({ candidates }) => {
 
     useEffect(() => {
         handlePreviewEnable();
-    }, [votes])
-
+    }, [votes]);
 
     const [snackBarOpen, setSnackBarOpen] = useState(false);
     const [snackBarMessage, setSnackBarMessage] = useState('');
@@ -108,8 +107,12 @@ const VotingComponent = ({ candidates }) => {
                 <Button variant="contained" onClick={() => handleClickOpen('generalSecretary')}>Vote for General Secretary</Button>
                 {votes.generalSecretary !== null && votes.generalSecretary !== '' && <CheckCircleIcon sx={{ color: 'green', marginLeft: '10px' }} />}
             </div>
-            <Button variant="contained" onClick={() => handleClickOpen('preview')} disabled={!previewEnabled}>Preview</Button>
-            <Button variant="contained" onClick={handleSubmit} disabled={!previewEnabled}>Submit</Button>
+            {/* <div className="mb-4">
+                <Button variant="contained" onClick={() => handleClickOpen('preview')} disabled={!previewEnabled}>Preview</Button>
+                {submitEnabled && <CheckCircleIcon sx={{ color: 'green', marginLeft: '10px' }} />}
+            </div> */}
+            {/* <Button variant="contained" onClick={handleSubmit} disabled={!submitEnabled}>Submit</Button> */}
+            <Button variant="contained" onClick={() => handleClickOpen('preview')} disabled={!previewEnabled}>Preview and Submit</Button>
 
             <Dialog open={open === 'president'} onClose={handleClose} fullWidth={true}>
                 <DialogTitle>Vote for President</DialogTitle>
@@ -201,8 +204,8 @@ const VotingComponent = ({ candidates }) => {
 
             <Dialog open={open === 'preview'} onClose={handleClose} fullWidth={true}>
                 <DialogContent>
-                    <div className="preview" style={{ marginTop: '20px', textAlign: 'center' }}>
-                        <Typography variant="h6">Preview your choices:</Typography>
+                    <div className="preview mb-4" style={{ marginTop: '20px', textAlign: 'center', background: '#00308F', color: 'white' }}>
+                        <Typography variant="h6" className='p-2'>Preview your choices</Typography>
                         <table className='table tab'>
                             <tbody>
                                 <tr key={1}>
@@ -221,8 +224,13 @@ const VotingComponent = ({ candidates }) => {
                         </table>
                     </div>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handlePreviewClose}>Done</Button>
+                <div>
+                    <div className='text-center' variant="h6">Are you sure you want to submit?</div>
+                    <div className='text-center' variant="h6">(This action cannot be undone)</div>
+                </div>
+                <DialogActions className='d-flex justify-content-center m-2 mb-3'>
+                    <div className='btn btn-primary' onClick={handlePreviewClose}>Back</div>
+                    <div className='btn btn-success' onClick={handleSubmit}>Submit</div>
                 </DialogActions>
             </Dialog>
             {isLoading && <CircularProgress className='m-3' />}

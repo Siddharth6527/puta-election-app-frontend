@@ -25,7 +25,7 @@ export default function NavbarComponent({ isAdmin }) {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <Link className="navbar-brand me-4" href="#" style={{ color: "#343a40" }}>
+        <Link className="navbar-brand me-4" to='/' style={{ color: "#343a40" }}>
           PUTA-Elections 2024
         </Link>
         <button

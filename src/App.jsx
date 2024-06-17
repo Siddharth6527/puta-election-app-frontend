@@ -11,7 +11,7 @@ import NavbarComponent from "./components/Navbar"
 import ChangePassword from './pages/ChangePassword';
 import { checkToken } from './utils/helpers';
 import ErrorBoundary from './utils/errorBoundary';
-import NotFoundPage from './utils/NotFound';
+import NotFoundPage from './pages/NotFound';
 
 function App() {
   const isDev = localStorage.getItem("role") == "dev" ? true : false;

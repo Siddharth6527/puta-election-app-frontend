@@ -21,7 +21,7 @@ const Vote = () => {
     useMemo(() => {
         const fetchData = async () => {
             const data = await fetchCandidatesFromServer();
-            console.log(data);
+            // console.log(data);
             setCandidates(data);
         }
         fetchData();
