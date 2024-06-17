@@ -93,7 +93,7 @@ const Results = () => {
       {isAdmin() && isLoading && (<CircularProgress />)}
       {!showResult && !isAdmin() && (
         <div className='mt-4'>
-          {hasVoted() && <h3 className='text-center mb-4'>Thanks for voting!</h3>}
+          {hasVoted() && <h3 className='text-center mb-4 fw-bold'>Thanks for voting!</h3>}
           <h3 className='text-center'>Results will be available soon.</h3>
         </div>
       )}

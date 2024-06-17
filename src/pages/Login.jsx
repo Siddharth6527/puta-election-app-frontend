@@ -39,6 +39,8 @@ export default function Login() {
       const res = await loginInServer(body);
       responseData = await res.json();
       if (responseData.status === "success") {
+        const initialTime = new Date().getTime();
+        localStorage.setItem('initialTime', JSON.stringify(initialTime));
         localStorage.setItem("authToken", responseData.token);
         localStorage.setItem("username", data.get("email"));
         localStorage.setItem("role", responseData.role);
