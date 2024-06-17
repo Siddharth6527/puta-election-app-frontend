@@ -38,6 +38,9 @@ const Results = () => {
   function isAdmin() {
     return localStorage.getItem('role') == 'voter' ? false : true;
   }
+  function hasVoted() {
+    return localStorage.getItem('hasVoted') == 'false' ? false : true;
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -90,7 +93,8 @@ const Results = () => {
       {isAdmin() && isLoading && (<CircularProgress />)}
       {!showResult && !isAdmin() && (
         <div className='mt-4'>
-          <h3 className='text-center'>Results will be available soon!</h3>
+          {hasVoted() && <h3 className='text-center mb-4'>Thanks for voting!</h3>}
+          <h3 className='text-center'>Results will be available soon.</h3>
         </div>
       )}
       {(showResult || isAdmin()) && (
