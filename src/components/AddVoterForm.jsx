@@ -75,9 +75,9 @@ export default function AddVoterForm({ SNo }) {
                         <option value="Physical Education">Physical Education</option>
                         <option value="University Library">University Library</option>
                         <option value="KVK, Dhanauri">KVK, Dhanauri</option>
-                        <option value="KVK, Chamloi">KVK, Chamoli</option>
+                        <option value="KVK, Chamoli">KVK, Chamoli</option>
                         <option value="KVK, Dhakrani">KVK, Dhakrani</option>
-                        <option value="KVK, Jeolikote">KVK, Rudraprayag</option>
+                        <option value="KVK, Jeolikote">KVK, Jeolikote</option>
                         <option value="KVK, Almora">KVK, Almora</option>
                         <option value="Directorate of Ext. Edu.">Directorate of Ext. Edu.</option>
                     </select>
