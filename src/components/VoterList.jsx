@@ -252,7 +252,7 @@ export default function VoterList({ isAdmin, initialRows }) {
         getRowClassName={(param) => {
           return param.row.VoteStatus ? "voted" : "not-voted";
         }}
-        // editMode="row"
+        editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
