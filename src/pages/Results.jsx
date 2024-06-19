@@ -127,10 +127,30 @@ const Results = () => {
               </div>
               <div style={myStyle}>
                 <h3 style={{ margin: 20 }}>General Secretary</h3>
-                {results.vicepresident.length > 0 &&
+                {results.generalsecretary.length > 0 &&
                   <CandidateList
                     initialRows={results.generalsecretary}
                     position={"generalSecretary"}
+                    isAdmin={false}
+                    isSlNoVisible={false}
+                  />}
+              </div>
+              <div style={myStyle}>
+                <h3 style={{ margin: 20 }}>Secretary</h3>
+                {results.secretary.length > 0 &&
+                  <CandidateList
+                    initialRows={results.secretary}
+                    position={"secretary"}
+                    isAdmin={false}
+                    isSlNoVisible={false}
+                  />}
+              </div>
+              <div style={myStyle}>
+                <h3 style={{ margin: 20 }}>Treasurer</h3>
+                {results.treasurer.length > 0 &&
+                  <CandidateList
+                    initialRows={results.treasurer}
+                    position={"treasurer"}
                     isAdmin={false}
                     isSlNoVisible={false}
                   />}

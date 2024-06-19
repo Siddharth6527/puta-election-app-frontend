@@ -9,12 +9,18 @@ const VotingComponent = ({ candidates }) => {
     const [votes, setVotes] = useState({
         president: '',
         vicePresident: '',
-        generalSecretary: ''
+        generalSecretary: '',
+        secretary: '',
+        treasurer: '',
+        // executiveMembers: []
     });
     const [voteID, setVotesID] = useState({
         president: '',
         vicePresident: '',
-        generalSecretary: ''
+        generalSecretary: '',
+        secretary: '',
+        treasurer: '',
+        // executiveMembers: []
     });
 
     const [open, setOpen] = useState(null);
@@ -106,6 +112,14 @@ const VotingComponent = ({ candidates }) => {
             <div className='mb-4'>
                 <Button variant="contained" onClick={() => handleClickOpen('generalSecretary')}>Vote for General Secretary</Button>
                 {votes.generalSecretary !== null && votes.generalSecretary !== '' && <CheckCircleIcon sx={{ color: 'green', marginLeft: '10px' }} />}
+            </div>
+            <div className='mb-4'>
+                <Button variant="contained" onClick={() => handleClickOpen('secretary')}>Vote for Secretary</Button>
+                {votes.secretary !== null && votes.secretary !== '' && <CheckCircleIcon sx={{ color: 'green', marginLeft: '10px' }} />}
+            </div>
+            <div className='mb-4'>
+                <Button variant="contained" onClick={() => handleClickOpen('treasurer')}>Vote for treasurer</Button>
+                {votes.treasurer !== null && votes.treasurer !== '' && <CheckCircleIcon sx={{ color: 'green', marginLeft: '10px' }} />}
             </div>
             {/* <div className="mb-4">
                 <Button variant="contained" onClick={() => handleClickOpen('preview')} disabled={!previewEnabled}>Preview</Button>
@@ -202,6 +216,64 @@ const VotingComponent = ({ candidates }) => {
                 </DialogActions>
             </Dialog>
 
+            <Dialog open={open === 'secretary'} onClose={handleClose} fullWidth={true}>
+                <DialogTitle>Vote for Secretary</DialogTitle>
+                <DialogContent>
+                    <FormControl fullWidth>
+                        <InputLabel>Secretary</InputLabel>
+                        <Select
+                            value={votes.secretary}
+                            onChange={(e) => handleVoteChange('secretary', e.target.value)}
+                        >
+                            {candidates.secretary.map(candidate => (
+                                <MenuItem
+                                    key={candidate._id}
+                                    value={`${candidate.name}-${candidate._id}`}
+                                >
+                                    {candidate.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <div className='fs-4 fw-semibold m-1 text-success p-0'>
+                        {votes.secretary}
+                    </div>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => handleCloseWithoutSubmit('secretary')}>Cancel</Button>
+                    <Button onClick={handleClose}>Next</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={open === 'treasurer'} onClose={handleClose} fullWidth={true}>
+                <DialogTitle>Vote for treasurer</DialogTitle>
+                <DialogContent>
+                    <FormControl fullWidth>
+                        <InputLabel>treasurer</InputLabel>
+                        <Select
+                            value={votes.treasurer}
+                            onChange={(e) => handleVoteChange('treasurer', e.target.value)}
+                        >
+                            {candidates.treasurer.map(candidate => (
+                                <MenuItem
+                                    key={candidate._id}
+                                    value={`${candidate.name}-${candidate._id}`}
+                                >
+                                    {candidate.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <div className='fs-4 fw-semibold m-1 text-success p-0'>
+                        {votes.treasurer}
+                    </div>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => handleCloseWithoutSubmit('treasurer')}>Cancel</Button>
+                    <Button onClick={handleClose}>Next</Button>
+                </DialogActions>
+            </Dialog>
+
             <Dialog open={open === 'preview'} onClose={handleClose} fullWidth={true}>
                 <DialogContent>
                     <div className="preview mb-4" style={{ marginTop: '20px', textAlign: 'center', background: '#00308F', color: 'white' }}>
@@ -219,6 +291,14 @@ const VotingComponent = ({ candidates }) => {
                                 <tr key={3}>
                                     <td>General Seceratary</td>
                                     <td>{votes.generalSecretary}</td>
+                                </tr>
+                                <tr key={3}>
+                                    <td>Seceratary</td>
+                                    <td>{votes.secretary}</td>
+                                </tr>
+                                <tr key={3}>
+                                    <td>Treasurer</td>
+                                    <td>{votes.treasurer}</td>
                                 </tr>
                             </tbody>
                         </table>
