@@ -24,12 +24,12 @@ const getPosId = (position) => {
 
 export const addDataToServer = async (form) => {
   try {
-    // const token = getToken();
+    const token = getToken();
     const formData = new FormData(form);
     const response = await fetch(`${BASE_URL}/voters/signup`, {
       method: 'POST',
       headers: {
-        // 'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams(formData)
