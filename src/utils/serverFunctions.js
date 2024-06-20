@@ -2,12 +2,12 @@
 const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
 
 const getToken = () => {
-  const token = localStorage.getItem("authToken");
+  const token = localStorage.getItem('authToken');
   if (!token) {
-    throw new Error("No token found, please login first");
+    throw new Error('No token found, please login first');
   }
   return token;
-};
+}
 const getPosId = (position) => {
   if (position === "President" || position === "president")
     return "665a9aa31ba50da59be2d66b";
@@ -15,25 +15,32 @@ const getPosId = (position) => {
     return "665a9b6d1ba50da59be2d66d";
   else if (position === "General Secretary" || position == "generalSecretary")
     return "665aed420ad0dd3ae812ce08";
+  else if (position === "Secretary" || position == "secretary")
+    return "66652d14fa7beea79a8fd148";
+  else if (position == "Treasurer" || position == "treasurer")
+    return "66727ae678350ee1cad8b934";
+
 };
 
 export const addDataToServer = async (form) => {
   try {
-    // const token = getToken();
+
+    const token = getToken();
     const formData = new FormData(form);
     const response = await fetch(`${BASE_URL}/voters/signup`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        // 'Authorization': `Bearer ${token}`,
-        "Content-Type": "application/x-www-form-urlencoded",
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: new URLSearchParams(formData),
+      body: new URLSearchParams(formData)
     });
     return response;
   } catch (error) {
-    console.log("error: ", error);
+    console.log('error: ', error);
   }
-};
+}
+
 
 export const addCandidateToServer = async (form) => {
   try {
@@ -46,77 +53,76 @@ export const addCandidateToServer = async (form) => {
           name: data.name,
           college: data.college,
           collegeInitials: data.collegeInitials,
-          voteCount: data.voteCount,
-        },
-      ],
-    };
+          voteCount: data.voteCount
+        }
+      ]
+    }
     const token = getToken();
     const response = await fetch(`${BASE_URL}/candidates/${posID}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newObject),
+      body: JSON.stringify(newObject)
     });
     return response;
   } catch (error) {
-    console.log("error: ", error);
+    console.log('error: ', error);
   }
-};
+}
+
 
 export const updateDataInServer = async (data) => {
   try {
     const token = getToken();
     const response = await fetch(`${BASE_URL}/voters/${data._id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
+
     });
     return response;
   } catch (error) {
     console.log("error", error);
   }
-};
+}
 
 export const deleteDataFromServer = async (objectId) => {
   try {
     const token = getToken();
     const response = await fetch(`${BASE_URL}/voters/${objectId}`, {
-      method: "Delete",
+      method: 'Delete',
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     });
     return response;
   } catch (error) {
     console.log("error", error);
   }
-};
+}
 
 export const deleteCandidateFromServer = async (objectId, position) => {
   try {
     const token = getToken();
     const posID = getPosId(position);
-    const response = await fetch(
-      `${BASE_URL}/candidates/${posID}/${objectId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`${BASE_URL}/candidates/${posID}/${objectId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
-    );
+    });
     return response;
   } catch (error) {
     console.log("error", error);
   }
-};
+}
 
 export const convertToServerObject = (obj) => {
   return {
@@ -130,8 +136,9 @@ export const convertToServerObject = (obj) => {
     memebershipCategory: obj.MembershipCategory,
     email: obj.email,
     password: obj.password,
-  };
-};
+  }
+}
+
 
 const changeFormat = (arr) => {
   return arr.reduce((acc, current) => {
@@ -145,67 +152,67 @@ export const fetchCandidatesFromServer = async () => {
   try {
     const token = getToken();
     const response = await fetch(`${BASE_URL}/candidates`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     });
     const fetchedData = await response.json();
     // console.log(fetchedData);
     const data = changeFormat(fetchedData.data);
     return data;
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error);
     return null;
   }
-};
+}
 
 export const fetchVotersFromServer = async () => {
   try {
     const token = getToken();
-    const response = await fetch(`${BASE_URL}/voters?`, {
-      method: "GET",
+    const response = await fetch(`${BASE_URL}/voters`, {
+      method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
     const fetchedData = await response.json();
     const data = fetchedData.data.voters;
     // console.log(data);
     return data;
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error);
     return null;
   }
-};
+}
 
 export const addVoteInServer = async (position, candidateID, voterID) => {
   const positionID = getPosId(position);
   const data = {
     posId: positionID,
     canId: candidateID,
-    voterId: voterID,
-  };
+    voterId: voterID
+  }
   try {
     const token = getToken();
     const response = await fetch(`${BASE_URL}/candidates/votesUpdate`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     });
     if (response.ok) {
-      localStorage.setItem("hasVoted", true);
+      localStorage.setItem('hasVoted', true);
     }
     return response;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 export const loginInServer = async (body) => {
   try {
@@ -215,39 +222,40 @@ export const loginInServer = async (body) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    });
+    }
+    );
     // console.log(res);
     return res;
   } catch (err) {
     console.log(err);
   }
-};
+}
 
 export const ChangePasswordInServer = async (body) => {
   try {
     if (body.password !== body.passwordConfirm) {
-      return "Passwords do not match!";
+      return "Passwords do not match!"
     }
     const token = getToken();
     const res = await fetch(`${BASE_URL}/voters/updatePassword`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
-    });
+      body: JSON.stringify(body)
+    })
     const responseData = await res.json();
     return responseData;
   } catch (err) {
     return "error";
   }
-};
+}
 
 export const getResultVisibility = async () => {
   try {
     const allVoters = await fetchVotersFromServer();
-    const admin = allVoters.find((voter) => voter.role === "dev");
+    const admin = allVoters.find((voter) => voter.role === 'dev');
     const visiblity = admin.voted;
     return visiblity;
   } catch (err) {
@@ -258,29 +266,30 @@ export const getResultVisibility = async () => {
 export const toggleResultsVisiblity = async (value) => {
   try {
     const allVoters = await fetchVotersFromServer();
-    const admin = allVoters.find((voter) => voter.role === "dev");
-    const data = { ...admin, voted: value };
+    const admin = allVoters.find((voter) => voter.role === 'dev');
+    const data = { ...admin, voted: (value) }
     const res = await updateDataInServer(data);
-    // const responseData = await res.json();
+    const responseData = await res.json();
     if (res.ok) console.log("success changed visiblity");
-    else console.log("error in change visibility");
+    else console.log("error in change visibility")
   } catch (err) {
     console.log(err);
   }
-};
+}
 
 export const resetVotes = async () => {
   try {
     const token = getToken();
     const res = await fetch(`${BASE_URL}/candidates/resetVotes`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
-      },
+      }
     });
     return res;
   } catch (err) {
     console.log("error", err);
   }
-};
+}
+
