@@ -1,6 +1,5 @@
-// const BASE_URL = "http://localhost:3000/api/v1";
+// const BASE_URL = `"http://localhost:3000/api/v1";
 const BASE_URL = "https://puta-election-app-backend.onrender.com/api/v1";
-
 
 const getToken = () => {
   const token = localStorage.getItem('authToken');
@@ -20,10 +19,12 @@ const getPosId = (position) => {
     return "66652d14fa7beea79a8fd148";
   else if (position == "Treasurer" || position == "treasurer")
     return "66727ae678350ee1cad8b934";
+
 };
 
 export const addDataToServer = async (form) => {
   try {
+
     const token = getToken();
     const formData = new FormData(form);
     const response = await fetch(`${BASE_URL}/voters/signup`, {
@@ -39,6 +40,7 @@ export const addDataToServer = async (form) => {
     console.log('error: ', error);
   }
 }
+
 
 export const addCandidateToServer = async (form) => {
   try {
@@ -70,6 +72,7 @@ export const addCandidateToServer = async (form) => {
   }
 }
 
+
 export const updateDataInServer = async (data) => {
   try {
     const token = getToken();
@@ -80,6 +83,7 @@ export const updateDataInServer = async (data) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
+
     });
     return response;
   } catch (error) {
@@ -134,6 +138,7 @@ export const convertToServerObject = (obj) => {
     password: obj.password,
   }
 }
+
 
 const changeFormat = (arr) => {
   return arr.reduce((acc, current) => {
@@ -287,3 +292,4 @@ export const resetVotes = async () => {
     console.log("error", err);
   }
 }
+

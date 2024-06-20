@@ -72,6 +72,14 @@ export default function AddVoterForm({ SNo }) {
                         <option value="College of Agribusiness management">College of Agribusiness management</option>
                         <option value="College of Fisheries">College of Fisheries</option>
                         <option value="College of Community Sciences">College of Community Sciences</option>
+                        <option value="Physical Education">Physical Education</option>
+                        <option value="University Library">University Library</option>
+                        <option value="KVK, Dhanauri">KVK, Dhanauri</option>
+                        <option value="KVK, Chamoli">KVK, Chamoli</option>
+                        <option value="KVK, Dhakrani">KVK, Dhakrani</option>
+                        <option value="KVK, Jeolikote">KVK, Jeolikote</option>
+                        <option value="KVK, Almora">KVK, Almora</option>
+                        <option value="Directorate of Ext. Edu.">Directorate of Ext. Edu.</option>
                     </select>
                     <div className="invalid-feedback">
                         Select one college
