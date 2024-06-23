@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PutaLogo from "../../resource/img/puta-logo1.png";
 
 export default function NavbarComponent({ isAdmin }) {
   const [loggedIn, setLoggedIn] = useState();
@@ -25,7 +26,13 @@ export default function NavbarComponent({ isAdmin }) {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <Link className="navbar-brand me-4" to='/' style={{ color: "#343a40" }}>
+        <img
+          src={PutaLogo}
+          // className="img-fluid rounded"
+          alt="Resp onsive image"
+          height={50}
+        ></img>
+        <Link className="navbar-brand me-4" to="/" style={{ color: "#343a40" }}>
           PUTA-Elections 2024
         </Link>
         <button
@@ -116,7 +123,10 @@ export default function NavbarComponent({ isAdmin }) {
 
           {loggedIn && (
             <div className="dropdown-center">
-              <button className="btn nav-item p-0 m-0" data-bs-toggle="dropdown">
+              <button
+                className="btn nav-item p-0 m-0"
+                data-bs-toggle="dropdown"
+              >
                 <Link className="nav-link">
                   <AccountCircleIcon />
                   <span
@@ -142,7 +152,10 @@ export default function NavbarComponent({ isAdmin }) {
                   </Link>
                 </div>
 
-                <div className="nav-item menu-item text-center info-text" onClick={onLogoutHandler}>
+                <div
+                  className="nav-item menu-item text-center info-text"
+                  onClick={onLogoutHandler}
+                >
                   <Link className="nav-link" to="/">
                     <span
                       data-bs-target="#navbarSupportedContent"
@@ -156,7 +169,6 @@ export default function NavbarComponent({ isAdmin }) {
               </div>
             </div>
           )}
-
         </div>
       </div>
     </nav>
