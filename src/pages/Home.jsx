@@ -1,6 +1,6 @@
 import React from "react";
 // import PutaImg from "../../resource/img/puta-cover-page.jpg";
-import PutaLogo from "../../resource/img/latest4.png";
+import PutaLogo from "../../resource/img/latest3.png";
 import { Box } from "@mui/material";
 
 export default function Home() {
