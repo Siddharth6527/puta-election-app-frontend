@@ -310,7 +310,7 @@ const VotingComponent = ({ candidates }) => {
                 </div>
                 <DialogActions className='d-flex justify-content-center m-2 mb-3'>
                     <div className='btn btn-primary' onClick={handlePreviewClose}>Back</div>
-                    <div className='btn btn-success' onClick={handleSubmit}>Submit</div>
+                    {!isLoading && <div className='btn btn-success' onClick={handleSubmit}>Submit</div>}
                 </DialogActions>
             </Dialog>
             {isLoading && <CircularProgress className='m-3' />}
