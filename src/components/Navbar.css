@@ -46,6 +46,6 @@ nav {
 
 @media screen and (max-width: 1000px) {
   nav {
-    padding: 1.5rem !important;
+    /* padding: 1.5rem !important; */
   }
 }

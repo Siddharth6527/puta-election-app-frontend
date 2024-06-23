@@ -30,9 +30,9 @@ export default function NavbarComponent({ isAdmin }) {
           src={PutaLogo}
           // className="img-fluid rounded"
           alt="Resp onsive image"
-          height={50}
+          height={40}
         ></img>
-        <Link className="navbar-brand me-4" to="/" style={{ color: "#343a40" }}>
+        <Link className="navbar-brand" to="/" style={{ color: "#343a40" }}>
           PUTA-Elections 2024
         </Link>
         <button
