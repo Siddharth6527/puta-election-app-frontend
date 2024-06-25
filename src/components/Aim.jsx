@@ -11,7 +11,8 @@ export default function Aim() {
   return (
     <div>
       <Box height={50} />
-      <Box sx={{ margin: 10 }}>
+      <Box sx={{ marginLeft: 10, marginRight: 10 }}>
+        {/* <Box sx={{ margin: 10 }}> */}
         {/* <Image src={mainImg} alt={"main-image"} layout="responsive"></Image> */}
         <img src={TeacherImg} alt="" className="img-fluid rounded" />
       </Box>
