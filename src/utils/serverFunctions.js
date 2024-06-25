@@ -262,7 +262,6 @@ export const getResultVisibility = async () => {
     console.log("error", err);
   }
 };
-
 export const toggleResultsVisiblity = async (value) => {
   try {
     const allVoters = await fetchVotersFromServer();
@@ -276,6 +275,34 @@ export const toggleResultsVisiblity = async (value) => {
     console.log(err);
   }
 }
+
+export const toggleVotingVisiblity = async (value) => {
+  try {
+    const allVoters = await fetchVotersFromServer();
+    const admin = allVoters.find((voter) => voter.role === 'dev');
+    const newReceiptNo = value ? 11111 : 0;
+    const data = { ...admin, receiptNo: (newReceiptNo) }
+    const res = await updateDataInServer(data);
+    const responseData = await res.json();
+    if (res.ok) console.log("successfully changed Voting status");
+    else console.log("error in changing voting status")
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const getVotingVisibility = async () => {
+  try {
+    const allVoters = await fetchVotersFromServer();
+    const admin = allVoters.find((voter) => voter.role === 'dev');
+    const receiptNo = admin.receiptNo;
+    // console.log(admin);
+    return receiptNo === 11111 ? true : false;
+  } catch (err) {
+    console.log("error", err);
+  }
+};
+
 
 export const resetVotes = async () => {
   try {
