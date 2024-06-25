@@ -12,6 +12,7 @@ export default function page() {
         height={600}
         // maxHeight={600}
         sx={{ backgroundColor: "#36454F", borderRadius: "25px" }}
+        margin={2}
       >
         <Box
           sx={{

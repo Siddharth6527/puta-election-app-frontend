@@ -12,7 +12,7 @@ export default function Aim() {
       <Box height={100} />
       <Box>
         {/* <Image src={mainImg} alt={"main-image"} layout="responsive"></Image> */}
-        <img src={TeacherImg} alt="" className="img-fluid rounded" />
+        {/* <img src={TeacherImg} alt="" className="img-fluid rounded" /> */}
       </Box>
       <Box sx={{ padding: "2%" }}>
         <Box
@@ -28,7 +28,8 @@ export default function Aim() {
             color="#343a40"
             sx={{ typography: { xs: "h4", sm: "h4", lg: "h2" } }}
           >
-            Puta Election App&apos;s Aim
+            {/* Puta Election App&apos;s Aim */}
+            Application&apos;s Aim
           </Typography>
         </Box>
         <Box height={50} />
@@ -39,7 +40,7 @@ export default function Aim() {
             spacing={2}
           >
             <Grid item xs={10} md={8} lg={6}>
-              <Typography variant="h5" color="#343a40" align="center">
+              <Typography variant="h6" color="#343a40" align="center">
                 Develop a secure and user-friendly software application to
                 streamline the process of conducting college-level elections for
                 teachers&apos; associations, ensuring accurate vote tallying and
