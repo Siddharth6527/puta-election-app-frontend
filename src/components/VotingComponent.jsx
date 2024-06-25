@@ -8,18 +8,18 @@ import { useNavigate } from 'react-router-dom';
 const VotingComponent = ({ candidates }) => {
     const [votes, setVotes] = useState({
         president: '',
-        vicePresident: '',
-        generalSecretary: '',
-        secretary: '',
-        treasurer: '',
+        // vicePresident: '',
+        // generalSecretary: '',
+        // secretary: '',
+        // treasurer: '',
         // executiveMembers: []
     });
     const [voteID, setVotesID] = useState({
         president: '',
-        vicePresident: '',
-        generalSecretary: '',
-        secretary: '',
-        treasurer: '',
+        // vicePresident: '',
+        // generalSecretary: '',
+        // secretary: '',
+        // treasurer: '',
         // executiveMembers: []
     });
 
@@ -28,6 +28,9 @@ const VotingComponent = ({ candidates }) => {
     // const [submitted, setSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        if (voted) { redirect(); }
+    }, [])
     useEffect(() => {
         handlePreviewEnable();
     }, [votes]);
@@ -46,7 +49,7 @@ const VotingComponent = ({ candidates }) => {
     };
 
     const handleClose = () => {
-        setOpen(null);
+        if (!voted) setOpen(null);
         handlePreviewEnable();
     };
 
@@ -73,6 +76,7 @@ const VotingComponent = ({ candidates }) => {
     };
 
     const navigate = useNavigate();
+    const [voted, setVoted] = useState(false);
 
     const handleSubmit = async () => {
         setIsLoading(true);
@@ -94,10 +98,12 @@ const VotingComponent = ({ candidates }) => {
             setSnackBarOpen(true);
         }
         setIsLoading(false);
+        setVoted(true);
+    };
+    const redirect = () => {
         navigate('/results')
         setTimeout(() => navigate(0), 1000);
-
-    };
+    }
 
     return (
         <div className="vote-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', marginTop: '50px' }}>
@@ -105,7 +111,7 @@ const VotingComponent = ({ candidates }) => {
                 <Button variant="contained" onClick={() => handleClickOpen('president')}>Vote for President</Button>
                 {votes.president !== null && votes.president !== '' && <CheckCircleIcon sx={{ color: 'green', marginLeft: '10px' }} />}
             </div>
-            <div className='mb-3'>
+            {/* <div className='mb-3'>
                 <Button variant="contained" onClick={() => handleClickOpen('vicePresident')}>Vote for Vice President</Button>
                 {votes.vicePresident !== null && votes.vicePresident !== '' && <CheckCircleIcon sx={{ color: 'green', marginLeft: '10px' }} />}
             </div>
@@ -120,12 +126,7 @@ const VotingComponent = ({ candidates }) => {
             <div className='mb-4'>
                 <Button variant="contained" onClick={() => handleClickOpen('treasurer')}>Vote for treasurer</Button>
                 {votes.treasurer !== null && votes.treasurer !== '' && <CheckCircleIcon sx={{ color: 'green', marginLeft: '10px' }} />}
-            </div>
-            {/* <div className="mb-4">
-                <Button variant="contained" onClick={() => handleClickOpen('preview')} disabled={!previewEnabled}>Preview</Button>
-                {submitEnabled && <CheckCircleIcon sx={{ color: 'green', marginLeft: '10px' }} />}
             </div> */}
-            {/* <Button variant="contained" onClick={handleSubmit} disabled={!submitEnabled}>Submit</Button> */}
             <Button variant="contained" onClick={() => handleClickOpen('preview')} disabled={!previewEnabled}>Preview and Submit</Button>
 
             <Dialog open={open === 'president'} onClose={handleClose} fullWidth={true}>
@@ -157,7 +158,7 @@ const VotingComponent = ({ candidates }) => {
                     <Button onClick={handleClose}>Next</Button>
                 </DialogActions>
             </Dialog>
-
+            {/* 
             <Dialog open={open === 'vicePresident'} onClose={handleClose} fullWidth={true}>
                 <DialogTitle>Vote for Vice President</DialogTitle>
                 <DialogContent>
@@ -272,10 +273,11 @@ const VotingComponent = ({ candidates }) => {
                     <Button onClick={() => handleCloseWithoutSubmit('treasurer')}>Cancel</Button>
                     <Button onClick={handleClose}>Next</Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog> */}
 
             <Dialog open={open === 'preview'} onClose={handleClose} fullWidth={true}>
                 <DialogContent>
+                    {voted && <div className='text-center text-danger fw-semibold fs-4' variant="h3">Please take a screenshot of this screen!</div>}
                     <div className="preview mb-4" style={{ marginTop: '20px', textAlign: 'center', background: '#00308F', color: 'white' }}>
                         <Typography variant="h6" className='p-2'>Preview your choices</Typography>
                         <table className='table tab'>
@@ -284,7 +286,7 @@ const VotingComponent = ({ candidates }) => {
                                     <td>President</td>
                                     <td>{votes.president}</td>
                                 </tr>
-                                <tr key={2}>
+                                {/* <tr key={2}>
                                     <td>Vice President</td>
                                     <td>{votes.vicePresident}</td>
                                 </tr>
@@ -299,19 +301,32 @@ const VotingComponent = ({ candidates }) => {
                                 <tr key={3}>
                                     <td>Treasurer</td>
                                     <td>{votes.treasurer}</td>
-                                </tr>
+                                </tr> */}
                             </tbody>
                         </table>
                     </div>
                 </DialogContent>
-                <div>
-                    <div className='text-center' variant="h6">Are you sure you want to submit?</div>
-                    <div className='text-center' variant="h6">(This action cannot be undone)</div>
-                </div>
-                <DialogActions className='d-flex justify-content-center m-2 mb-3'>
-                    <div className='btn btn-primary' onClick={handlePreviewClose}>Back</div>
-                    {!isLoading && <div className='btn btn-success' onClick={handleSubmit}>Submit</div>}
-                </DialogActions>
+                {!voted &&
+                    <div>
+                        <div className='text-center' variant="h6">Are you sure you want to submit?</div>
+                        <div className='text-center' variant="h6">(This action cannot be undone)</div>
+                    </div>
+                }
+                {!voted &&
+                    <DialogActions className='d-flex justify-content-center m-2 mb-3'>
+                        <div className='btn btn-primary' onClick={handlePreviewClose}>Back</div>
+                        {!isLoading && <div className='btn btn-success' onClick={handleSubmit}>Submit</div>}
+                    </DialogActions>
+                }
+                {voted &&
+                    <div>
+                        <div className='text-center text-success' variant="h6">You have voted Successfully</div>
+                        <DialogActions className='d-flex justify-content-center m-2 mb-3'>
+                            <div className='btn btn-primary' onClick={redirect}>Done</div>
+                        </DialogActions>
+                    </div>
+                }
+
             </Dialog>
             {isLoading && <CircularProgress className='m-3' />}
             <SnackBarComponent

@@ -115,7 +115,7 @@ const Results = () => {
                     isSlNoVisible={false}
                   />}
               </div>
-              <div style={myStyle}>
+              {/* <div style={myStyle}>
                 <h3 style={{ margin: 20 }}>Vice President</h3>
                 {results.vicepresident.length > 0 &&
                   <CandidateList
@@ -154,7 +154,7 @@ const Results = () => {
                     isAdmin={false}
                     isSlNoVisible={false}
                   />}
-              </div>
+              </div> */}
             </>)}
         </div>
       )}
