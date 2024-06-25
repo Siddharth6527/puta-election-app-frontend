@@ -10,8 +10,8 @@ import TeacherImg from "../../resource/img/teachers.svg";
 export default function Aim() {
   return (
     <div>
-      <Box height={100} />
-      <Box>
+      <Box height={50} />
+      <Box sx={{ margin: 10 }}>
         {/* <Image src={mainImg} alt={"main-image"} layout="responsive"></Image> */}
         <img src={TeacherImg} alt="" className="img-fluid rounded" />
       </Box>
