@@ -9,6 +9,7 @@ import SafeImg from "../../resource/img/Safe.svg";
 import FastImg from "../../resource/img/Fast.svg";
 import { Typography } from "@mui/material";
 import Aim from "../components/Aim";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -62,6 +63,8 @@ export default function Home() {
           image={FastImg}
         />
       </Box>
+      <Box height={80} />
+      <Footer />
     </React.Fragment>
   );
 }
