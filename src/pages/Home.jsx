@@ -4,9 +4,9 @@ import PutaLogo from "../../resource/img/latest3.png";
 import { Box } from "@mui/material";
 import FeaturesCard from "../components/Features";
 import Features from "../components/textData/Features.json";
-import ReliableImg from "../../resource/img/Reliable.svg";
-import SafeImg from "../../resource/img/Safe.svg";
-import FastImg from "../../resource/img/Fast.svg";
+import ReliableImg from "../../resource/img/reliable2.svg";
+import SafeImg from "../../resource/img/safe2.svg";
+import FastImg from "../../resource/img/fast2.svg";
 import { Typography } from "@mui/material";
 import Aim from "../components/Aim";
 import Footer from "../components/Footer";
@@ -21,6 +21,28 @@ export default function Home() {
           className="img-fluid rounded"
           alt="Responsive image"
         ></img>
+      </Box>
+
+      <Box margin="auto">
+        <Typography
+          // sx={{ typography: { xs: "h4", sm: "h3", md: "h2", lg: "h2" } }}
+          variant="h4"
+          gutterBottom
+          color="#343a40"
+        >
+          GBPUAT, Pantnagar Uttarakhand
+        </Typography>
+      </Box>
+
+      <Box margin="auto">
+        <Typography
+          // sx={{ typography: { xs: "h4", sm: "h3", md: "h2", lg: "h2" } }}
+          variant="h5"
+          gutterBottom
+          color="#343a40"
+        >
+          Build By Department of IT, COT
+        </Typography>
       </Box>
 
       {/* <Box height={300} /> */}

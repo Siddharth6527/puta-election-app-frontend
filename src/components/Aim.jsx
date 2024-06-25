@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 // import mainImg from "../../../public/main.jpg";
 // import Image from "next/image";
 // import TeacherImg from "../../resource/img/teachers-img.png";
-import TeacherImg from "../../resource/img/teachers.svg";
+import TeacherImg from "../../resource/img/teachers-img2.svg";
 
 export default function Aim() {
   return (
