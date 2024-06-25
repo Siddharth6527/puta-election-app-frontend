@@ -11,7 +11,8 @@ export default function page() {
       <Box
         height={600}
         // maxHeight={600}
-        sx={{ backgroundColor: "#36454F", borderRadius: "25px" }}
+        // sx={{ backgroundColor: "#36454F", borderRadius: "25px" }}
+        sx={{ backgroundColor: "#413b99", borderRadius: "25px" }}
         margin={1}
       >
         <Box
@@ -35,13 +36,13 @@ export default function page() {
             marginTop: 4,
           }}
         >
-          <Typography variant="h6" color="#EDEADE">
+          <Typography variant="h6" color="#f1f3f5">
             MADE BY:
           </Typography>
           <Typography
             sx={{ typography: { xs: "h5", sm: "h4", lg: "h2" } }}
             variant="h3"
-            color="#FFE5B4"
+            color="#f1f3f5"
             paddingLeft={2}
             paddingRight={2}
             align={"center"}
@@ -51,7 +52,7 @@ export default function page() {
           <Typography
             sx={{ typography: { xs: "h6", sm: "h5" } }}
             variant="h4"
-            color="#FFE5B4"
+            color="#f1f3f5"
             align={"center"}
           >
             College of Technology, GBPUAT Pantnagar

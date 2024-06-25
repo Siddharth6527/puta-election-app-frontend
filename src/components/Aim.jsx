@@ -4,7 +4,8 @@ import { Box } from "@mui/material";
 import { Grid } from "@mui/material";
 // import mainImg from "../../../public/main.jpg";
 // import Image from "next/image";
-import TeacherImg from "../../resource/img/teachers-img.png";
+// import TeacherImg from "../../resource/img/teachers-img.png";
+import TeacherImg from "../../resource/img/teachers.svg";
 
 export default function Aim() {
   return (
@@ -12,7 +13,7 @@ export default function Aim() {
       <Box height={100} />
       <Box>
         {/* <Image src={mainImg} alt={"main-image"} layout="responsive"></Image> */}
-        {/* <img src={TeacherImg} alt="" className="img-fluid rounded" /> */}
+        <img src={TeacherImg} alt="" className="img-fluid rounded" />
       </Box>
       <Box sx={{ padding: "2%" }}>
         <Box

@@ -23,7 +23,7 @@ export default function Home() {
         ></img>
       </Box>
 
-      <Box height={300} />
+      {/* <Box height={300} /> */}
 
       {/* AIM SECTION */}
       <Aim />
