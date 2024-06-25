@@ -29,7 +29,7 @@ export default function Aim() {
             sx={{ typography: { xs: "h4", sm: "h4", lg: "h2" } }}
           >
             {/* Puta Election App&apos;s Aim */}
-            Application&apos;s Aim
+            Aim
           </Typography>
         </Box>
         <Box height={50} />
@@ -41,10 +41,11 @@ export default function Aim() {
           >
             <Grid item xs={10} md={8} lg={6}>
               <Typography variant="h6" color="#343a40" align="center">
-                Develop a secure and user-friendly software application to
-                streamline the process of conducting college-level elections for
-                teachers&apos; associations, ensuring accurate vote tallying and
-                transparent results.
+                The aim of this application is to develop a secure and
+                user-friendly software application to streamline the process of
+                conducting college-level elections for teachers&apos;
+                associations, ensuring accurate vote tallying and transparent
+                results.
               </Typography>
             </Grid>
           </Grid>

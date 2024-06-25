@@ -17,10 +17,13 @@ export default function Home() {
       <Box margin={"auto"} maxWidth={1200}>
         <img
           src={PutaLogo}
+          // height={"100vh"}
           className="img-fluid rounded"
           alt="Responsive image"
         ></img>
       </Box>
+
+      <Box height={300} />
 
       {/* AIM SECTION */}
       <Aim />
@@ -44,7 +47,7 @@ export default function Home() {
           flexDirection: { xs: "column", sm: "column", md: "row" },
           justifyContent: "center",
           gap: "10%",
-          padding: "2%",
+          // padding: "1%",
         }}
       >
         <FeaturesCard
