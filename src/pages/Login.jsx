@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SnackBarComponent from "../components/SnackBarComponent";
@@ -18,7 +18,6 @@ import { CircularProgress } from "@mui/material";
 const defaultTheme = createTheme();
 
 export default function Login() {
-
   const navigate = useNavigate();
 
   const [displaySnackbar, setDisplaySnackbar] = useState(false);
@@ -40,18 +39,17 @@ export default function Login() {
       responseData = await res.json();
       if (responseData.status === "success") {
         const initialTime = new Date().getTime();
-        localStorage.setItem('initialTime', JSON.stringify(initialTime));
+        localStorage.setItem("initialTime", JSON.stringify(initialTime));
         localStorage.setItem("authToken", responseData.token);
         localStorage.setItem("username", data.get("email"));
         localStorage.setItem("role", responseData.role);
-        localStorage.setItem('id', responseData.id);
-        localStorage.setItem('hasVoted', responseData.voted);
+        localStorage.setItem("id", responseData.id);
+        localStorage.setItem("hasVoted", responseData.voted);
         setResMessage(responseData.status);
         setDisplaySnackbar(true);
-        setTimeout(() => navigate('/'), 1000);
+        setTimeout(() => navigate("/"), 1000);
         setTimeout(() => navigate(0), 1000);
-      }
-      else {
+      } else {
         setResMessage(responseData.message);
         setDisplaySnackbar(true);
       }
@@ -59,7 +57,7 @@ export default function Login() {
     } catch (err) {
       console.error("Error: ", err);
     }
-  }
+  };
 
   const onCloseHandler = () => {
     setDisplaySnackbar(false);
@@ -118,14 +116,13 @@ export default function Login() {
             <Grid container className="mb-5">
               <Grid item xs>
                 {/* <Box height={20} > */}
-
               </Grid>
             </Grid>
             {!isLoading && (
               <div>
                 <Typography variant="subtitle.1" color="#212529">
-                  Your Username is First Name followed by symbol(@), and then your
-                  Receipt ID
+                  Your Username is First Name followed by symbol(@), and then
+                  your Receipt ID
                 </Typography>
                 <br />
                 <Typography variant="subtitle.1" color="#212529">
