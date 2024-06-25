@@ -15,6 +15,7 @@ export default function FeaturesCard(props) {
         marginBottom: 5,
         borderRadius: "10px",
         backgroundColor: "#f1f3f5",
+        margin: { xs: 5, md: 2 },
       }}
     >
       {/* <Image src={props.image} alt="testing" layout="responsive"></Image> */}

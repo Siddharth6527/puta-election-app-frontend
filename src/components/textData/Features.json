@@ -1,14 +1,14 @@
 {
   "feature1": {
     "heading": "Reliable",
-    "text": "Reliable software ensures consistent performance, minimal downtime, and high availability, built with robust error handling and thorough testing. It enhances user trust by delivering a seamless and predictable experience even under varying conditions."
+    "text": "Reliable software ensures consistent performance, minimal downtime, and high availability, built with robust error handling and thorough testing. "
   },
   "feature2": {
     "heading": "Safe and Secure",
-    "text": "A safe and secure software ensures data integrity and privacy through robust encryption and regular vulnerability assessments, providing reliable protection against cyber threats. It prioritizes user trust with stringent compliance to industry security standards."
+    "text": "A safe and secure software ensures data integrity and privacy through robust encryption and regular vulnerability assessments, providing reliable protection against cyber threats."
   },
   "feature3": {
     "heading": "Fast",
-    "text": "A fast software is engineered to perform complex tasks with minimal latency, leveraging optimized algorithms and efficient resource management to ensure seamless, real-time user experiences. Its robust architecture reduces processing time and maximizes throughput, setting benchmarks in performance and reliability."
+    "text": "A fast software is engineered to perform complex tasks with minimal latency, leveraging optimized algorithms and efficient resource management to ensure seamless, real-time user experiences."
   }
 }

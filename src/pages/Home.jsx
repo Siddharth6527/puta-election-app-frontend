@@ -8,6 +8,7 @@ import ReliableImg from "../../resource/img/Reliable.svg";
 import SafeImg from "../../resource/img/Safe.svg";
 import FastImg from "../../resource/img/Fast.svg";
 import { Typography } from "@mui/material";
+import Aim from "../components/Aim";
 
 export default function Home() {
   return (
@@ -19,6 +20,10 @@ export default function Home() {
           alt="Responsive image"
         ></img>
       </Box>
+
+      {/* AIM SECTION */}
+      <Aim />
+      <Box height={100} />
 
       <Box margin="auto">
         <Typography
