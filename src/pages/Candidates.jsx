@@ -98,7 +98,7 @@ export default function Candidates() {
                         <h2 className="heading">President</h2>
                         <CandidateList initialRows={results.president} position={"president"} />
                     </div>
-                    <div className="list">
+{/*                     <div className="list">
                         <h2 className="heading">Vice President</h2>
                         <CandidateList initialRows={results.vicepresident} position={"vicePresident"} />
                     </div>
@@ -109,11 +109,11 @@ export default function Candidates() {
                     <div className="list">
                         <h2 className="heading">Secretary</h2>
                         <CandidateList initialRows={results.secretary} position={"secretary"} />
-                    </div>
-                    <div className="list">
+                    </div> */}
+{/*                     <div className="list">
                         <h2 className="heading">Treasurer</h2>
                         <CandidateList initialRows={results.treasurer} position={"treasurer"} />
-                    </div>
+                    </div> */}
                 </div>
             )}
             <div>
