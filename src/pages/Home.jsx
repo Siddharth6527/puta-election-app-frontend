@@ -10,6 +10,7 @@ import FastImg from "../../resource/img/fast2.svg";
 import { Typography } from "@mui/material";
 import Aim from "../components/Aim";
 import Footer from "../components/Footer";
+import DesImg from "../../resource/img/des2.png";
 
 export default function Home() {
   return (
@@ -21,9 +22,15 @@ export default function Home() {
           className="img-fluid rounded"
           alt="Responsive image"
         ></img>
+        <img
+          src={DesImg}
+          // height={"100vh"}
+          className="img-fluid rounded"
+          alt="Responsive image"
+        ></img>
       </Box>
 
-      <Box margin="auto">
+      {/* <Box margin="auto">
         <Typography
           // sx={{ typography: { xs: "h4", sm: "h3", md: "h2", lg: "h2" } }}
           variant="h4"
@@ -32,9 +39,9 @@ export default function Home() {
         >
           GBPUAT, Pantnagar Uttarakhand
         </Typography>
-      </Box>
+      </Box> */}
 
-      <Box margin="auto">
+      {/* <Box margin="auto">
         <Typography
           // sx={{ typography: { xs: "h4", sm: "h3", md: "h2", lg: "h2" } }}
           variant="h5"
@@ -43,7 +50,7 @@ export default function Home() {
         >
           Build By Department of IT, COT
         </Typography>
-      </Box>
+      </Box> */}
 
       {/* <Box height={300} /> */}
 
