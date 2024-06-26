@@ -11,17 +11,25 @@ import { Typography } from "@mui/material";
 import Aim from "../components/Aim";
 import Footer from "../components/Footer";
 import DesImg from "../../resource/img/des2.png";
+import FieldImg from "../../resource/img/field-img.jpg";
 
 export default function Home() {
   return (
     <React.Fragment>
       <Box margin={"auto"} maxWidth={1200}>
+        <Box height={{ xs: 140 }}></Box>
         <img
           src={PutaLogo}
           // height={"100vh"}
           className="img-fluid rounded"
           alt="Responsive image"
         ></img>
+        {/* <img
+          src={FieldImg}
+          // height={"100vh"}
+          className="img-fluid rounded"
+          alt="Responsive image"
+        ></img> */}
         <img
           src={DesImg}
           // height={"100vh"}
