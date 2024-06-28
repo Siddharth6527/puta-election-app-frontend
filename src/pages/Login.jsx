@@ -118,7 +118,7 @@ export default function Login() {
                 {/* <Box height={20} > */}
               </Grid>
             </Grid>
-            {!isLoading && (
+{/*             {!isLoading && (
               <div>
                 <Typography variant="subtitle.1" color="#212529">
                   Your Username is First Name followed by symbol(@), and then
@@ -129,7 +129,7 @@ export default function Login() {
                   For example: rohan@263, or siddharth@321
                 </Typography>
               </div>
-            )}
+            )} */}
             {isLoading && <CircularProgress className="m-3" />}
           </Box>
           {displaySnackbar === true && (
